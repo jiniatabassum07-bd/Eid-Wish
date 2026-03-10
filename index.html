@@ -184,3 +184,77 @@
             // Player Movement
             window.addEventListener('mousemove', (e) => {
                 if(!gameActive) return;
+                player.style.left = e.clientX - 25 + 'px';
+                player.style.top = e.clientY - 25 + 'px';
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if(!gameActive) return;
+                let touch = e.touches[0];
+                player.style.left = touch.clientX - 25 + 'px';
+                player.style.top = touch.clientY - 25 + 'px';
+            });
+
+            // Initial Spawn
+            for(let i=0; i<8; i++) createSalami();
+
+            // Collision Check
+            const interval = setInterval(() => {
+                if(!gameActive) { clearInterval(interval); return; }
+                checkCollision();
+            }, 50);
+
+            // Finish game after 10 seconds
+            setTimeout(finishGame, 10000);
+        }
+
+        function createSalami() {
+            const s = document.createElement('div');
+            s.className = 'salami';
+            s.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+            s.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            document.getElementById('game-screen').appendChild(s);
+            salamis.push(s);
+        }
+
+        function checkCollision() {
+            const player = document.getElementById('player').getBoundingClientRect();
+            salamis.forEach((s, index) => {
+                const sRect = s.getBoundingClientRect();
+                if(!(player.right < sRect.left || player.left > sRect.right || player.bottom < sRect.top || player.top > sRect.bottom)) {
+                    score++;
+                    document.getElementById('scoreboard').innerText = "সালামি: " + score;
+                    s.remove();
+                    salamis.splice(index, 1);
+                    createSalami();
+                }
+            });
+        }
+
+        function finishGame() {
+            gameActive = false;
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('message-screen').classList.remove('hidden');
+            
+            // Animate lines
+            const lines = document.querySelectorAll('.msg-line');
+            lines.forEach((l, i) => {
+                setTimeout(() => l.classList.add('reveal'), i * 800);
+            });
+
+            // Trigger Confetti
+            for(let i=0; i<50; i++) spawnConfetti();
+        }
+
+        function spawnConfetti() {
+            const c = document.createElement('div');
+            c.className = 'confetti';
+            c.style.left = Math.random() * 100 + 'vw';
+            c.style.background = ['#ff6b6b', '#ffd700', '#1abc9c', '#3498db'][Math.floor(Math.random()*4)];
+            c.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 4000);
+        }
+    </script>
+</body>
+</html>
