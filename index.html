@@ -1,260 +1,233 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eid Mubarak - Interactive Surprise</title>
-    <style>
-        :root {
-            --primary: #ff9f43;
-            --secondary: #ff6b6b;
-            --gold: #ffd700;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid Mubarak | A Gift for You</title>
+<style>
+    :root {
+        --gold: #D4AF37;
+        --navy: #001F3F;
+        --cream: #FFF8E1;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0b132b;
-            color: white;
-            overflow: hidden;
-            text-align: center;
-        }
+    body {
+        margin: 0;
+        font-family: 'Playfair Display', serif;
+        background: var(--navy);
+        color: white;
+        overflow: hidden;
+        text-align: center;
+    }
 
-        .hidden { display: none !important; }
+    .hidden { display: none !important; }
 
-        /* Home Page */
-        .container {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, #1c2541 0%, #0b132b 100%);
-        }
+    /* Home Screen */
+    .screen {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
 
-        .home-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            max-width: 90%;
-        }
+    h1 {
+        font-size: 3.5rem;
+        color: var(--gold);
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    }
 
-        h1 { font-size: 2.5em; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin-bottom: 10px; }
-        p { font-size: 1.1em; opacity: 0.9; margin-bottom: 25px; }
+    p { font-size: 1.2rem; opacity: 0.8; margin-bottom: 30px; }
 
-        .btn-start {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.4s;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-        }
+    .btn-gold {
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        background: transparent;
+        color: var(--gold);
+        border: 2px solid var(--gold);
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.4s;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
 
-        .btn-start:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6); }
+    .btn-gold:hover {
+        background: var(--gold);
+        color: var(--navy);
+        box-shadow: 0 0 20px var(--gold);
+    }
 
-        /* Game UI */
-        #game-screen {
-            height: 100vh;
-            background: #1a1a2e;
-            position: relative;
-            cursor: none;
-        }
+    /* Game Arena */
+    #game-arena {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        background: radial-gradient(circle at center, #003366 0%, #001F3F 100%);
+    }
 
-        #scoreboard {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.1);
-            padding: 10px 30px;
-            border-radius: 30px;
-            font-size: 1.5em;
-            color: var(--gold);
-            z-index: 100;
-        }
+    #basket {
+        position: absolute;
+        bottom: 30px;
+        width: 80px;
+        height: 20px;
+        background: var(--gold);
+        border-radius: 20px;
+        box-shadow: 0 0 15px var(--gold);
+        transition: 0.1s;
+    }
 
-        #player {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: url('https://cdn-icons-png.flaticon.com/512/2271/2271062.png');
-            background-size: contain;
-            pointer-events: none;
-            z-index: 50;
-            filter: drop-shadow(0 0 10px var(--secondary));
-        }
+    .drop {
+        position: absolute;
+        font-size: 25px;
+        color: var(--gold);
+        user-select: none;
+    }
 
-        .salami {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: url('https://cdn-icons-png.flaticon.com/512/2489/2489756.png');
-            background-size: contain;
-            transition: 0.2s;
-            animation: bounce 1.5s infinite alternate;
-        }
+    #stats {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 1.5rem;
+        color: var(--gold);
+    }
 
-        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+    /* Elegant Letter */
+    #letter {
+        background: var(--cream);
+        color: var(--navy);
+    }
 
-        /* Message Page */
-        #message-screen {
-            min-height: 100vh;
-            background: #fff;
-            color: #222;
-            padding: 50px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .letter-content {
+        max-width: 600px;
+        padding: 40px;
+        border: 1px solid var(--gold);
+        background: white;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
 
-        .letter {
-            max-width: 600px;
-            background: #fffaf0;
-            padding: 30px;
-            border: 2px solid #f1c40f;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-        }
+    .letter-content h2 { color: var(--gold); font-size: 2.5rem; margin-bottom: 20px; }
+    .letter-content p { color: #444; line-height: 1.8; font-size: 1.1rem; margin-bottom: 15px; opacity: 0; transform: translateY(10px); transition: 1s; }
+    .letter-content p.visible { opacity: 1; transform: translateY(0); }
 
-        .msg-line { opacity: 0; transform: translateY(15px); transition: 0.8s; margin: 15px 0; font-size: 1.2em; line-height: 1.6; }
-        .msg-line.reveal { opacity: 1; transform: translateY(0); }
-
-        /* Confetti */
-        .confetti { position: fixed; width: 10px; height: 10px; z-index: 1000; pointer-events: none; animation: fall linear forwards; }
-        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
-
-    </style>
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <audio id="eidMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-    </audio>
+<div id="home" class="screen">
+    <div style="font-size: 50px; margin-bottom: 20px;">🌙</div>
+    <h1>EID MUBARAK</h1>
+    <p>Catch the falling stars to reveal your Eid message.</p>
+    <button class="btn-gold" onclick="startExperience()">Begin Experience</button>
+</div>
 
-    <section id="home-screen" class="container">
-        <div class="home-card">
-            <h1>Eid Mubarak 🌙</h1>
-            <p>সালামি সংগ্রহ করতে গেমটি শুরু করুন!</p>
-            <button class="btn-start" onclick="initGame()">Celebrate Now</button>
-        </div>
-    </section>
+<div id="game-arena" class="hidden">
+    <div id="stats">Blessings: <span id="score">0</span></div>
+    <div id="basket"></div>
+</div>
 
-    <section id="game-screen" class="hidden">
-        <div id="scoreboard">সালামি: 0</div>
-        <div id="player"></div>
-    </section>
+<div id="letter" class="screen hidden">
+    <div class="letter-content">
+        <h2>Eid Mubarak</h2>
+        <p class="wish">Dearest Friend,</p>
+        <p class="wish">May this blessed occasion of Eid-ul-Fitr bring an abundance of joy, peace, and prosperity to your life.</p>
+        <p class="wish">May your heart be filled with spiritual light and your home with laughter and togetherness.</p>
+        <p class="wish">Wishing you and your family a celebration that is as beautiful as the crescent moon.</p>
+        <p class="wish"><strong>With Warmest Regards</strong></p>
+        <button class="btn-gold" style="margin-top: 20px;" onclick="location.reload()">Replay</button>
+    </div>
+</div>
 
-    <section id="message-screen" class="hidden">
-        <div class="letter">
-            <h2 style="color: #d35400;">🌙 ঈদ মোবারক 🌙</h2>
-            <p class="msg-line">প্রিয় বন্ধু,</p>
-            <p class="msg-line">সব আনন্দ আর খুশি নিয়ে আসুক এই ঈদ।</p>
-            <p class="msg-line">আল্লাহ আপনার এবং আপনার পরিবারের ওপর রহমত বর্ষণ করুন।</p>
-            <p class="msg-line">প্রতিটি দিন হোক ঈদের মতো আনন্দময়।</p>
-            <p class="msg-line"><strong>ঈদ মোবারক! 💛</strong></p>
-        </div>
-        <img src="https://media.giphy.com/media/xT1XGzU0Tfq2E6N39S/giphy.gif" width="200" style="margin-top: 20px; border-radius: 10px;">
-        <button class="btn-start" style="margin-top: 30px;" onclick="location.reload()">আবার খেলুন</button>
-    </section>
+<script>
+    let score = 0;
+    let gameActive = false;
+    const basket = document.getElementById('basket');
+    const arena = document.getElementById('game-arena');
+    let basketX = window.innerWidth / 2 - 40;
 
-    <script>
-        let score = 0;
-        let gameActive = false;
-        let salamis = [];
+    function startExperience() {
+        document.getElementById('home').classList.add('hidden');
+        arena.classList.remove('hidden');
+        gameActive = true;
+        
+        // Move basket
+        window.addEventListener('mousemove', (e) => {
+            basketX = e.clientX - 40;
+            if(basketX < 0) basketX = 0;
+            if(basketX > window.innerWidth - 80) basketX = window.innerWidth - 80;
+            basket.style.left = basketX + 'px';
+        });
 
-        function initGame() {
-            document.getElementById('eidMusic').play();
-            document.getElementById('home-screen').classList.add('hidden');
-            document.getElementById('game-screen').classList.remove('hidden');
-            gameActive = true;
-            
-            const player = document.getElementById('player');
-            
-            // Player Movement
-            window.addEventListener('mousemove', (e) => {
-                if(!gameActive) return;
-                player.style.left = e.clientX - 25 + 'px';
-                player.style.top = e.clientY - 25 + 'px';
-            });
+        window.addEventListener('touchmove', (e) => {
+            basketX = e.touches[0].clientX - 40;
+            basket.style.left = basketX + 'px';
+        });
 
-            window.addEventListener('touchmove', (e) => {
-                if(!gameActive) return;
-                let touch = e.touches[0];
-                player.style.left = touch.clientX - 25 + 'px';
-                player.style.top = touch.clientY - 25 + 'px';
-            });
+        gameLoop();
+        setTimeout(finishGame, 12000); // 12 seconds game
+    }
 
-            // Initial Spawn
-            for(let i=0; i<8; i++) createSalami();
+    function createDrop() {
+        if(!gameActive) return;
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        drop.innerHTML = Math.random() > 0.5 ? '⭐' : '🌙';
+        drop.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+        drop.style.top = '-50px';
+        arena.appendChild(drop);
 
-            // Collision Check
-            const interval = setInterval(() => {
-                if(!gameActive) { clearInterval(interval); return; }
-                checkCollision();
-            }, 50);
+        let fallSpeed = Math.random() * 2 + 3;
+        let currentY = -50;
 
-            // Finish game after 10 seconds
-            setTimeout(finishGame, 10000);
-        }
+        const fallInterval = setInterval(() => {
+            if(!gameActive) {
+                clearInterval(fallInterval);
+                drop.remove();
+                return;
+            }
+            currentY += fallSpeed;
+            drop.style.top = currentY + 'px';
 
-        function createSalami() {
-            const s = document.createElement('div');
-            s.className = 'salami';
-            s.style.left = Math.random() * (window.innerWidth - 50) + 'px';
-            s.style.top = Math.random() * (window.innerHeight - 50) + 'px';
-            document.getElementById('game-screen').appendChild(s);
-            salamis.push(s);
-        }
-
-        function checkCollision() {
-            const player = document.getElementById('player').getBoundingClientRect();
-            salamis.forEach((s, index) => {
-                const sRect = s.getBoundingClientRect();
-                if(!(player.right < sRect.left || player.left > sRect.right || player.bottom < sRect.top || player.top > sRect.bottom)) {
+            // Collision check
+            if(currentY > window.innerHeight - 70 && currentY < window.innerHeight - 30) {
+                let dropX = parseFloat(drop.style.left);
+                if(dropX > basketX - 20 && dropX < basketX + 80) {
                     score++;
-                    document.getElementById('scoreboard').innerText = "সালামি: " + score;
-                    s.remove();
-                    salamis.splice(index, 1);
-                    createSalami();
+                    document.getElementById('score').innerText = score;
+                    clearInterval(fallInterval);
+                    drop.remove();
                 }
-            });
-        }
+            }
 
-        function finishGame() {
-            gameActive = false;
-            document.getElementById('game-screen').classList.add('hidden');
-            document.getElementById('message-screen').classList.remove('hidden');
-            
-            // Animate lines
-            const lines = document.querySelectorAll('.msg-line');
-            lines.forEach((l, i) => {
-                setTimeout(() => l.classList.add('reveal'), i * 800);
-            });
+            if(currentY > window.innerHeight) {
+                clearInterval(fallInterval);
+                drop.remove();
+            }
+        }, 20);
+    }
 
-            // Trigger Confetti
-            for(let i=0; i<50; i++) spawnConfetti();
+    function gameLoop() {
+        if(gameActive) {
+            createDrop();
+            setTimeout(gameLoop, 600);
         }
+    }
 
-        function spawnConfetti() {
-            const c = document.createElement('div');
-            c.className = 'confetti';
-            c.style.left = Math.random() * 100 + 'vw';
-            c.style.background = ['#ff6b6b', '#ffd700', '#1abc9c', '#3498db'][Math.floor(Math.random()*4)];
-            c.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            document.body.appendChild(c);
-            setTimeout(() => c.remove(), 4000);
-        }
-    </script>
+    function finishGame() {
+        gameActive = false;
+        arena.classList.add('hidden');
+        document.getElementById('letter').classList.remove('hidden');
+        
+        const wishes = document.querySelectorAll('.wish');
+        wishes.forEach((w, i) => {
+            setTimeout(() => { w.classList.add('visible'); }, i * 1000);
+        });
+    }
+</script>
+
 </body>
 </html>
