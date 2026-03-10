@@ -1,294 +1,186 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eid Mubarak Interactive</title>
-<style>
-body {
-    margin: 0;
-    font-family: 'Georgia', serif;
-    background: #fffaf0;
-    overflow-x: hidden;
-    text-align: center;
-    filter: brightness(1.05) contrast(1.05); /* subtle premium filter */
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak - Interactive Surprise</title>
+    <style>
+        :root {
+            --primary: #ff9f43;
+            --secondary: #ff6b6b;
+            --gold: #ffd700;
+        }
 
-/* Hidden helper */
-.hidden { display: none; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0b132b;
+            color: white;
+            overflow: hidden;
+            text-align: center;
+        }
 
-/* Stars & moon background */
-#bgCanvas{
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-1;
-}
+        .hidden { display: none !important; }
 
-/* Home Section */
-.home {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-}
-.home h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 6px #000;
-}
-.start-btn {
-    padding: 15px 30px;
-    font-size: 1.2em;
-    background: #ff9f43;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.start-btn:hover { background: #ff6b6b; }
+        /* Home Page */
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #1c2541 0%, #0b132b 100%);
+        }
 
-/* Game Section */
-#game {
-    position: relative;
-    width: 100%;
-    height: 80vh;
-    background: linear-gradient(to bottom, #cce7ff, #b3f0ff);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow: hidden;
-}
-#player {
-    width: 50px;
-    height: 50px;
-    background: #ff6b6b;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 50px;
-    transition: 0.1s;
-}
-.salami {
-    width: 30px;
-    height: 30px;
-    background: gold;
-    border-radius: 50%;
-    position: absolute;
-    animation: sparkle 1s infinite alternate;
-}
-@keyframes sparkle {
-    0% { box-shadow: 0 0 5px gold; }
-    100% { box-shadow: 0 0 15px #ffd700; }
-}
-#scoreboard {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #2c3e50;
-}
+        .home-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            max-width: 90%;
+        }
 
-/* Letter Section */
-#letter {
-    padding:50px;
-    background:#fff8f0;
-    font-family:'Georgia', serif;
-    text-align:center;
-}
-#letter h2 {
-    color:#b85c38;
-    font-size:2.5em;
-    margin-bottom:20px;
-}
-#letter p{
-    max-width:650px;
-    line-height:2;
-    color:#3b3b3b;
-    font-style:italic;
-    font-size:1.4em;
-    opacity:0;
-}
-#letter img {
-    margin-top:30px;
-    border-radius:15px;
-    display:none;
-}
+        h1 { font-size: 2.5em; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin-bottom: 10px; }
+        p { font-size: 1.1em; opacity: 0.9; margin-bottom: 25px; }
 
-/* Confetti */
-.confetti-piece{
-    position: fixed;
-    width:10px;
-    height:10px;
-    background:gold;
-    top:0;
-    left:0;
-    pointer-events:none;
-    z-index:9999;
-    opacity:0.8;
-    animation:fall linear forwards;
-}
-@keyframes fall{
-    0% {transform: translateY(0) rotate(0deg);}
-    100% {transform: translateY(100vh) rotate(360deg);}
-}
+        .btn-start {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.4s;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
 
-@keyframes fadeInLine {from{opacity:0;}to{opacity:1;}}
-/* Responsive */
-@media (max-width: 600px){
-    .home h1 { font-size: 2.2em; }
-    .start-btn { font-size: 1em; padding: 10px 20px; }
-    #letter { font-size: 1.2em; padding:30px; }
-}
-</style>
+        .btn-start:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6); }
+
+        /* Game UI */
+        #game-screen {
+            height: 100vh;
+            background: #1a1a2e;
+            position: relative;
+            cursor: none;
+        }
+
+        #scoreboard {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.1);
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 1.5em;
+            color: var(--gold);
+            z-index: 100;
+        }
+
+        #player {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('https://cdn-icons-png.flaticon.com/512/2271/2271062.png');
+            background-size: contain;
+            pointer-events: none;
+            z-index: 50;
+            filter: drop-shadow(0 0 10px var(--secondary));
+        }
+
+        .salami {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('https://cdn-icons-png.flaticon.com/512/2489/2489756.png');
+            background-size: contain;
+            transition: 0.2s;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+
+        /* Message Page */
+        #message-screen {
+            min-height: 100vh;
+            background: #fff;
+            color: #222;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .letter {
+            max-width: 600px;
+            background: #fffaf0;
+            padding: 30px;
+            border: 2px solid #f1c40f;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .msg-line { opacity: 0; transform: translateY(15px); transition: 0.8s; margin: 15px 0; font-size: 1.2em; line-height: 1.6; }
+        .msg-line.reveal { opacity: 1; transform: translateY(0); }
+
+        /* Confetti */
+        .confetti { position: fixed; width: 10px; height: 10px; z-index: 1000; pointer-events: none; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+
+    </style>
 </head>
 <body>
 
-<canvas id="bgCanvas"></canvas>
+    <audio id="eidMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    </audio>
 
-<!-- Background Music -->
-<audio id="bgMusic" loop autoplay>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+    <section id="home-screen" class="container">
+        <div class="home-card">
+            <h1>Eid Mubarak 🌙</h1>
+            <p>সালামি সংগ্রহ করতে গেমটি শুরু করুন!</p>
+            <button class="btn-start" onclick="initGame()">Celebrate Now</button>
+        </div>
+    </section>
 
-<!-- Home -->
-<div class="home" id="home">
-    <h1>Eid Mubarak! 🌙</h1>
-    <video width="400" autoplay loop muted playsinline>
-        <source src="https://media.giphy.com/media/3o6Zt6ML6BklcajjsA/giphy.mp4" type="video/mp4">
-    </video>
-    <br>
-    <button class="start-btn" onclick="startGame()">Celebrate Eid</button>
-</div>
+    <section id="game-screen" class="hidden">
+        <div id="scoreboard">সালামি: 0</div>
+        <div id="player"></div>
+    </section>
 
-<!-- Game -->
-<div id="game" class="hidden">
-    <div id="scoreboard">Score: 0</div>
-    <div id="player"></div>
-</div>
+    <section id="message-screen" class="hidden">
+        <div class="letter">
+            <h2 style="color: #d35400;">🌙 ঈদ মোবারক 🌙</h2>
+            <p class="msg-line">প্রিয় বন্ধু,</p>
+            <p class="msg-line">সব আনন্দ আর খুশি নিয়ে আসুক এই ঈদ।</p>
+            <p class="msg-line">আল্লাহ আপনার এবং আপনার পরিবারের ওপর রহমত বর্ষণ করুন।</p>
+            <p class="msg-line">প্রতিটি দিন হোক ঈদের মতো আনন্দময়।</p>
+            <p class="msg-line"><strong>ঈদ মোবারক! 💛</strong></p>
+        </div>
+        <img src="https://media.giphy.com/media/xT1XGzU0Tfq2E6N39S/giphy.gif" width="200" style="margin-top: 20px; border-radius: 10px;">
+        <button class="btn-start" style="margin-top: 30px;" onclick="location.reload()">আবার খেলুন</button>
+    </section>
 
-<!-- Letter -->
-<div id="letter" class="hidden">
-    <h2>🌙 ঈদ মোবারক 🌙</h2>
-    <p id="line1">প্রিয় বন্ধু,</p>
-    <p id="line2">আল্লাহর অসীম করুণা ও রহমতে এই ঈদ আপনার জীবনকে শান্তি, সুখ এবং বরকতে পূর্ণ করুক।</p>
-    <p id="line3">আপনার হৃদয় হোক আলোর মতো উজ্জ্বল, এবং আপনার পরিবার ও প্রিয়জনদের সঙ্গে কাটুক আনন্দ ও ভালোবাসায় ভরা মুহূর্ত।</p>
-    <p id="line4">প্রতিটি দিন হোক দোয়া, সমৃদ্ধি ও বরকতের আলোয় আলোচিত।</p>
-    <p id="line5">আল্লাহ যেন আপনার প্রতিটি চেষ্টার ফলকে সফল করেন, এবং আপনার জীবনে হাসি, শান্তি ও প্রফুল্লতার ছোঁয়া বর্ষণ করেন।</p>
-    <p id="line6">এই ঈদ আপনার হৃদয় এবং জীবনকে সৌন্দর্য, শুভতা ও আনন্দের ছোঁয়ায় ভরিয়ে তুলুক। ঈদ মোবারক! 💛</p>
-    <img src="https://media.giphy.com/media/xT1XGzU0Tfq2E6N39S/giphy.gif" id="letterGif" width="220">
-</div>
+    <script>
+        let score = 0;
+        let gameActive = false;
+        let salamis = [];
 
-<script>
-// Canvas for stars/moon
-const canvas=document.getElementById('bgCanvas');
-const ctx=canvas.getContext('2d');
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-let stars=[];
-for(let i=0;i<100;i++){
-    stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1});
-}
-function drawStars(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="white";
-    stars.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});
-    requestAnimationFrame(drawStars);
-}
-drawStars();
-
-// Mini Game
-let player, game, scoreBoard, score=0, salamis=[], gameInterval;
-function startGame(){
-    document.getElementById('home').classList.add('hidden');
-    document.getElementById('game').classList.remove('hidden');
-    player=document.getElementById('player');
-    game=document.getElementById('game');
-    scoreBoard=document.getElementById('scoreboard');
-    for(let i=0;i<8;i++){
-        let s=document.createElement('div');
-        s.classList.add('salami');
-        s.style.left=Math.random()*(window.innerWidth-30)+'px';
-        s.style.top=Math.random()*300+'px';
-        game.appendChild(s);
-        salamis.push(s);
-    }
-    document.addEventListener('keydown',movePlayer);
-    let touchStartX=0,touchStartY=0;
-    document.addEventListener('touchstart', e=>{ touchStartX=e.touches[0].clientX; touchStartY=e.touches[0].clientY; });
-    document.addEventListener('touchend', e=>{
-        let dx=e.changedTouches[0].clientX-touchStartX;
-        let dy=e.changedTouches[0].clientY-touchStartY;
-        if(Math.abs(dx)>Math.abs(dy)){
-            if(dx>0) playerX+=40; else playerX-=40;
-        } else { if(dy>0) playerY+=40; else playerY-=40; }
-        updatePlayer();
-    });
-    gameInterval=setInterval(checkCollision,100);
-    setTimeout(showLetter,12000);
-}
-let playerX=window.innerWidth/2, playerY=50;
-function movePlayer(e){
-    const step=20;
-    if(e.key==='ArrowLeft') playerX-=step;
-    if(e.key==='ArrowRight') playerX+=step;
-    if(e.key==='ArrowUp') playerY-=step;
-    if(e.key==='ArrowDown') playerY+=step;
-    updatePlayer();
-}
-function updatePlayer(){
-    if(playerX<0) playerX=0;
-    if(playerX>window.innerWidth-50) playerX=window.innerWidth-50;
-    if(playerY<0) playerY=0;
-    if(playerY>game.offsetHeight-50) playerY=game.offsetHeight-50;
-    player.style.left=playerX+'px';
-    player.style.top=playerY+'px';
-}
-function checkCollision(){
-    salamis.forEach((s,index)=>{
-        let sX=parseFloat(s.style.left);
-        let sY=parseFloat(s.style.top);
-        if(Math.abs(playerX-sX)<40 && Math.abs(playerY-sY)<40){
-            score++;
-            scoreBoard.innerText='Score: '+score;
-            s.style.transform='scale(1.5)';
-            setTimeout(()=>{if(s) s.remove();},200);
-            salamis.splice(index,1);
-        }
-    });
-}
-
-// Show letter with animation & confetti
-function showLetter(){
-    clearInterval(gameInterval);
-    document.getElementById('game').classList.add('hidden');
-    const letter=document.getElementById('letter');
-    letter.classList.remove('hidden');
-    // Fade-in lines
-    let lines=document.querySelectorAll('#letter p');
-    lines.forEach((line,i)=>{
-        setTimeout(()=>{line.style.opacity=1; line.style.animation='fadeInLine 1s forwards';}, i*800);
-    });
-    // Show GIF
-    setTimeout(()=>{document.getElementById('letterGif').style.display='inline'; createConfetti();}, lines.length*800);
-}
-
-// Confetti
-function createConfetti(){
-    for(let i=0;i<50;i++){
-        let c=document.createElement('div');
-        c.classList.add('confetti-piece');
-        c.style.left=Math.random()*window.innerWidth+'px';
-        c.style.background=['#ffd700','#ff6b6b','#1abc9c','#f39c12'][Math.floor(Math.random()*4)];
-        c.style.animationDuration=(Math.random()*2+2)+'s';
-        document.body.appendChild(c);
-        setTimeout(()=>{c.remove();},4000);
-    }
-}
-</script>
-</body>
-
-</html>
+        function initGame() {
+            document.getElementById('eidMusic').play();
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            gameActive = true;
+            
+            const player = document.getElementById('player');
+            
+            // Player Movement
+            window.addEventListener('mousemove', (e) => {
+                if(!gameActive) return;
