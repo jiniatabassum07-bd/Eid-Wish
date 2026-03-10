@@ -19,10 +19,24 @@
         color: white;
         overflow: hidden;
         text-align: center;
-        touch-action: none; /* মোবাইলে স্ক্রিন নড়াচড়া বন্ধ করার জন্য */
+        touch-action: none;
     }
 
     .hidden { display: none !important; }
+
+    /* Floating Lanterns Decoration */
+    .lantern {
+        position: absolute;
+        top: -10px;
+        font-size: 35px;
+        z-index: 5;
+        animation: sway 3s ease-in-out infinite;
+        transform-origin: top center;
+    }
+    @keyframes sway {
+        0%, 100% { transform: rotate(-12deg); }
+        50% { transform: rotate(12deg); }
+    }
 
     /* Home Screen */
     .screen {
@@ -33,128 +47,136 @@
         align-items: center;
         padding: 20px;
         box-sizing: border-box;
+        background: radial-gradient(circle at center, #003366 0%, #001F3F 100%);
     }
 
     h1 {
-        font-size: 2.5rem; /* মোবাইলের জন্য সাইজ কমানো হয়েছে */
+        font-size: 2.8rem;
         color: var(--gold);
         margin-bottom: 10px;
         letter-spacing: 2px;
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
     }
 
-    p { font-size: 1rem; opacity: 0.8; margin-bottom: 30px; font-style: italic; }
+    p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; font-style: italic; }
 
     .btn-gold {
-        padding: 12px 35px;
-        font-size: 0.9rem;
+        padding: 14px 40px;
+        font-size: 1rem;
         background: transparent;
         color: var(--gold);
         border: 1px solid var(--gold);
-        border-radius: 2px;
+        border-radius: 50px;
         cursor: pointer;
         text-transform: uppercase;
         letter-spacing: 2px;
+        transition: 0.3s;
     }
+    .btn-gold:hover { background: var(--gold); color: var(--navy); }
 
     /* Game Arena */
     #game-arena {
         position: relative;
         width: 100%;
         height: 100vh;
-        background: radial-gradient(circle at center, #002b55 0%, #00152b 100%);
     }
 
     #basket {
         position: absolute;
-        bottom: 60px; /* মোবাইলে আঙুলের নিচ থেকে একটু উপরে রাখা হয়েছে */
-        width: 80px;
-        height: 10px;
+        bottom: 80px;
+        width: 100px;
+        height: 12px;
         background: var(--gold);
         border-radius: 10px;
-        box-shadow: 0 0 15px var(--gold);
+        box-shadow: 0 0 20px var(--gold);
         left: 50%;
         transform: translateX(-50%);
     }
 
     .drop {
         position: absolute;
-        font-size: 20px;
-        color: var(--gold);
+        font-size: 30px;
+        filter: drop-shadow(0 0 8px gold);
     }
 
     #stats {
         position: absolute;
-        top: 40px;
+        top: 60px;
         width: 100%;
-        font-size: 1rem;
+        font-size: 1.2rem;
         color: var(--gold);
+        font-weight: bold;
         letter-spacing: 1px;
     }
 
-    /* Long Letter - Scrollable on Mobile */
+    /* Long Elegant Letter */
     #letter {
         background: var(--cream);
         color: var(--navy);
         display: block;
         overflow-y: auto;
-        height: 100vh;
     }
 
     .letter-content {
         max-width: 90%;
         margin: 40px auto;
-        padding: 40px 20px;
+        padding: 50px 25px;
         border: 1px solid rgba(212, 175, 55, 0.3);
         background: white;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+        border-radius: 15px;
     }
 
-    .letter-content h2 { color: var(--gold); font-size: 2rem; margin-bottom: 20px; }
+    .letter-content h2 { color: var(--gold); font-size: 2.4rem; margin-bottom: 25px; }
     .letter-content p { 
         color: #333; 
         line-height: 1.8; 
-        font-size: 1rem; 
-        margin-bottom: 15px; 
+        font-size: 1.1rem; 
+        margin-bottom: 20px; 
         opacity: 0; 
-        transition: 1s;
-        text-align: left;
+        transition: 1.2s ease-in;
+        text-align: justify;
     }
     .letter-content p.visible { opacity: 1; }
     
-    .signature { text-align: right !important; margin-top: 30px !important; font-style: italic; color: var(--gold) !important; }
+    .signature { text-align: right !important; margin-top: 40px !important; font-style: italic; color: var(--gold) !important; font-size: 1.3rem !important;}
 
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<div class="lantern" style="left: 8%;">🏮</div>
+<div class="lantern" style="right: 8%; animation-delay: 1.5s;">🏮</div>
+
 <audio id="peacefulMusic" loop>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
 </audio>
 
 <div id="home" class="screen">
-    <div style="font-size: 30px; color: var(--gold); margin-bottom: 20px;">✨</div>
+    <div style="font-size: 65px; margin-bottom: 20px;">🎁</div>
     <h1>EID MUBARAK</h1>
-    <p>A small gift of light for you.</p>
+    <p>A celestial gift is waiting for you...</p>
     <button class="btn-gold" onclick="startExperience()">Open Your Gift</button>
 </div>
 
 <div id="game-arena" class="hidden">
-    <div id="stats">Blessings: <span id="score">0</span></div>
+    <div id="stats">Blessings Caught: <span id="score">0</span></div>
     <div id="basket"></div>
 </div>
 
-<div id="letter" class="hidden">
+<div id="letter" class="hidden screen">
     <div class="letter-content">
+        <div style="font-size: 45px; margin-bottom: 15px;">🌙</div>
         <h2>Eid-ul-Fitr Mubarak</h2>
         <p class="wish">My Dearest Friend,</p>
         <p class="wish">As the silver crescent moon marks the end of the holy month of Ramadan, I find myself reflecting on the beauty of our bond and the blessings we share. This Eid, I wanted to send you something more than just a message—a small token of my appreciation for your presence in my life.</p>
         <p class="wish">May the Almighty shower His countless blessings upon you and your beloved family. May this day bring you the kind of peace that stays in your heart forever, the kind of joy that brightens your darkest days, and the kind of prosperity that knows no bounds.</p>
         <p class="wish">May every prayer you've made during the silent nights of Ramadan be answered with grace. Let this celebration be a reminder of the love that surrounds us and the faith that guides us towards a better tomorrow.</p>
-        <p class="wish">Wishing you a celebration filled with laughter, delicious feasts, and cherished moments that turn into lifelong memories.</p>
+        <p class="wish">Wishing you a celebration filled with laughter, delicious feasts, and cherished moments that turn into lifelong memories. Have a truly wonderful Eid.</p>
         <p class="wish signature"><strong>Warmest Wishes, <br> From your Friend</strong></p>
         
-        <button class="btn-gold" style="margin-top: 20px;" onclick="location.reload()">Replay</button>
+        <button class="btn-gold" style="margin-top: 30px;" onclick="location.reload()">Replay Experience</button>
     </div>
 </div>
 
@@ -164,61 +186,52 @@
     const basket = document.getElementById('basket');
     const arena = document.getElementById('game-arena');
     const music = document.getElementById('peacefulMusic');
-    let basketX = window.innerWidth / 2 - 40;
+    let basketX = window.innerWidth / 2 - 50;
 
     function startExperience() {
-        music.play().catch(e => console.log("Music needs user click"));
+        music.play().catch(e => console.log("Music interaction required"));
         document.getElementById('home').classList.add('hidden');
         arena.classList.remove('hidden');
         gameActive = true;
         
-        // Mobile Touch Control
-        arena.addEventListener('touchmove', (e) => {
-            e.preventDefault(); // স্ক্রিন স্ক্রলিং বন্ধ রাখার জন্য
-            let touchX = e.touches[0].clientX;
-            basketX = touchX - 40;
-            
+        const moveHandler = (e) => {
+            if(!gameActive) return;
+            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            basketX = clientX - 50;
             if(basketX < 0) basketX = 0;
-            if(basketX > window.innerWidth - 80) basketX = window.innerWidth - 80;
-            
-            basket.style.left = basketX + 'px';
-            basket.style.transform = 'none'; 
-        }, {passive: false});
-
-        // Mouse Control for Desktop
-        arena.addEventListener('mousemove', (e) => {
-            basketX = e.clientX - 40;
-            if(basketX < 0) basketX = 0;
-            if(basketX > window.innerWidth - 80) basketX = window.innerWidth - 80;
+            if(basketX > window.innerWidth - 100) basketX = window.innerWidth - 100;
             basket.style.left = basketX + 'px';
             basket.style.transform = 'none';
-        });
+        };
+
+        arena.addEventListener('touchmove', (e) => { e.preventDefault(); moveHandler(e); }, {passive: false});
+        arena.addEventListener('mousemove', moveHandler);
 
         spawnLoop();
-        setTimeout(finishGame, 10000); 
+        setTimeout(finishGame, 10000); // গেমটি ১০ সেকেন্ড চলবে
     }
 
     function createDrop() {
         if(!gameActive) return;
         const drop = document.createElement('div');
         drop.className = 'drop';
-        drop.innerHTML = '✦';
-        drop.style.left = Math.random() * (window.innerWidth - 20) + 'px';
-        drop.style.top = '-20px';
+        const items = ['🎁', '⭐', '🌙', '✨', '💎', '🍬'];
+        drop.innerHTML = items[Math.floor(Math.random() * items.length)];
+        drop.style.left = Math.random() * (window.innerWidth - 40) + 'px';
+        drop.style.top = '-60px';
         arena.appendChild(drop);
 
-        let fallSpeed = Math.random() * 2 + 3;
-        let currentY = -20;
+        let fallSpeed = Math.random() * 2 + 4;
+        let currentY = -60;
 
         const fallInterval = setInterval(() => {
             if(!gameActive) { clearInterval(fallInterval); drop.remove(); return; }
             currentY += fallSpeed;
             drop.style.top = currentY + 'px';
 
-            // Catch logic
-            if(currentY > window.innerHeight - 80 && currentY < window.innerHeight - 50) {
+            if(currentY > window.innerHeight - 100 && currentY < window.innerHeight - 60) {
                 let dropX = parseFloat(drop.style.left);
-                if(dropX > basketX - 10 && dropX < basketX + 80) {
+                if(dropX > basketX - 15 && dropX < basketX + 100) {
                     score++;
                     document.getElementById('score').innerText = score;
                     clearInterval(fallInterval);
@@ -230,17 +243,16 @@
     }
 
     function spawnLoop() {
-        if(gameActive) { createDrop(); setTimeout(spawnLoop, 600); }
+        if(gameActive) { createDrop(); setTimeout(spawnLoop, 500); }
     }
 
     function finishGame() {
         gameActive = false;
         arena.classList.add('hidden');
         document.getElementById('letter').classList.remove('hidden');
-        
         const wishes = document.querySelectorAll('.wish');
         wishes.forEach((w, i) => {
-            setTimeout(() => { w.classList.add('visible'); }, i * 1000);
+            setTimeout(() => { w.classList.add('visible'); }, i * 1100);
         });
     }
 </script>
