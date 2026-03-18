@@ -1,288 +1,191 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Eid Mubarak | Eternal Elegance by Jinia</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@200;400&family=Hind+Siliguri:wght@300;500;700&display=swap" rel="stylesheet">
-
+<title>Eid Mubarak | Celestial Grace</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
 <style>
-    :root {
-        --gold: #C5A059;
-        --navy: #000b18;
-        --cream: #fffdf5;
-    }
-
-    body {
-        margin: 0;
-        font-family: 'Hind Siliguri', 'Montserrat', sans-serif;
-        background: var(--navy);
-        color: white;
-        overflow: hidden;
-        touch-action: none;
-    }
-
+    :root { --gold: #C5A059; --navy: #000b18; --cream: #fffdf5; }
+    body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--navy); color: white; overflow: hidden; touch-action: none; }
     .hidden { display: none !important; }
 
-    /* Luxury Background Particles */
     #bg-canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
-
-    .screen {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-        position: relative;
-        text-align: center;
-        padding: 20px;
-    }
-
-    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 2px; color: var(--gold); font-size: 2.8rem; margin: 10px 0; }
+    .screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; position: relative; text-align: center; padding: 20px; }
     
-    .btn-premium {
-        padding: 12px 35px;
-        background: transparent;
-        color: var(--gold);
-        border: 1px solid var(--gold);
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-size: 0.8rem;
-        transition: 0.5s;
-        margin-top: 20px;
-        font-family: 'Hind Siliguri', sans-serif;
-    }
+    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 5px; color: var(--gold); font-size: 3rem; }
+    .btn-premium { padding: 12px 35px; background: transparent; color: var(--gold); border: 1px solid var(--gold); cursor: pointer; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; transition: 0.5s; margin-top: 20px; }
     .btn-premium:hover { background: var(--gold); color: var(--navy); box-shadow: 0 0 20px var(--gold); }
 
-    /* Petal Rain Interaction */
-    #petal-canvas { position: absolute; top: 0; left: 0; z-index: 5; cursor: crosshair; transition: opacity 1.5s; }
-
-    /* Royal Envelope */
-    .envelope-wrapper { z-index: 2; position: relative; transform: scale(0.9); transition: 0.5s; }
-    .envelope {
-        width: 280px; height: 180px; background: #d4c4a8; position: relative;
-        transform-style: preserve-3d; transition: transform 0.8s;
-    }
-    .envelope::before {
-        content: ''; position: absolute; top: 0; left: 0;
-        border-left: 140px solid transparent; border-right: 140px solid transparent;
-        border-top: 100px solid #bba683; transform-origin: top; transition: 0.5s 0.5s; z-index: 2;
-    }
-    .envelope.open::before { transform: rotateX(180deg); z-index: 0; }
-    .wax-seal {
-        position: absolute; top: 70px; left: 115px; width: 50px; height: 50px;
-        background: #8b0000; border-radius: 50%; z-index: 3;
-        display: flex; align-items: center; justify-content: center; color: gold; font-size: 10px; font-weight: bold;
+    input.premium-input {
+        background: transparent; border: none; border-bottom: 1px solid var(--gold);
+        color: white; text-align: center; padding: 10px; outline: none;
+        font-size: 1.1rem; margin-top: 15px; width: 250px; font-family: 'Montserrat', sans-serif;
     }
 
-    /* Bouquet Section */
-    #builder { background: var(--cream); color: #444; overflow-y: auto; display: block; }
-    .bouquet-box { position: relative; width: 220px; height: 280px; margin: 20px auto; }
-    .bouquet-area { height: 160px; display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-end; }
-    .bouquet-wrap {
-        width: 100px; height: 90px; background: #e0d0b0;
-        clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
-        margin: -5px auto; border-top: 2px solid var(--gold);
-    }
-    .flower-item { font-size: 35px; margin: -12px; animation: pop 0.4s ease; }
+    .packet { position: absolute; font-size: 45px; cursor: pointer; transition: 0.1s; user-select: none; z-index: 20; }
 
-    #typewriter-text {
-        font-family: 'Hind Siliguri', serif; font-size: 1.15rem; line-height: 1.8;
-        max-width: 85%; margin: 30px auto; text-align: justify; color: #333;
-    }
+    .lantern-container { position: relative; width: 200px; height: 250px; cursor: grab; }
+    .lantern-off { font-size: 120px; filter: grayscale(1) brightness(0.5); transition: 1.5s; }
+    .flame-cursor { position: absolute; width: 30px; height: 30px; background: radial-gradient(circle, #ffcc00, transparent); border-radius: 50%; box-shadow: 0 0 20px #ffcc00; pointer-events: none; z-index: 9999; }
 
-    .signature { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--gold); text-align: right; padding: 20px; font-weight: bold; }
-
-    @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
-
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
-        h1 { font-size: 2.2rem; }
-        #typewriter-text { font-size: 1rem; text-align: center; }
-    }
+    #final-card { background: var(--cream); color: #444; overflow-y: auto; display: block; }
+    .bouquet-img { width: 260px; border: 10px solid white; box-shadow: 0 15px 40px rgba(0,0,0,0.15); margin-top: 15px; border-radius: 5px; }
+    #typewriter-text { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; line-height: 1.8; max-width: 85%; margin: 20px auto; font-style: italic; font-weight: 600; }
 </style>
 </head>
 <body>
 
 <canvas id="bg-canvas"></canvas>
-
-<audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
-</audio>
+<div id="flame" class="flame-cursor hidden"></div>
 
 <div id="home" class="screen">
-    <h2 style="font-size: 0.7rem; letter-spacing: 6px; opacity: 0.7;">একটি ব্যক্তিগত উপহার</h2>
-    <h1>শাশ্বত আভিজাত্য</h1>
-    <input type="text" id="userName" placeholder="আপনার নাম" style="background:transparent; border:none; border-bottom:1px solid var(--gold); color:white; text-align:center; padding:10px; outline:none; font-family:'Hind Siliguri'; font-size:1.2rem; margin-top:20px;">
-    <button class="btn-premium" onclick="startExperience()">শুরু করুন</button>
+    <h2 style="font-size: 0.6rem; letter-spacing: 8px; opacity: 0.6;">A CELESTIAL GIFT</h2>
+    <h1>Eternal Grace</h1>
+    <input type="text" id="senderName" class="premium-input" placeholder="YOUR NAME">
+    <input type="text" id="recipientName" class="premium-input" placeholder="RECIPIENT'S NAME">
+    <button class="btn-premium" onclick="startSalamiGame()">Begin Journey</button>
 </div>
 
-<div id="reveal-screen" class="screen hidden" style="background: #000;">
-    <canvas id="petal-canvas"></canvas>
-    <div class="envelope-wrapper" id="env-wrap">
-        <div id="env" class="envelope">
-            <div class="wax-seal">JINIA</div>
-        </div>
-        <p style="font-size: 0.7rem; letter-spacing: 2px; margin-top: 20px; color: var(--gold); font-family: 'Hind Siliguri';">পাপড়িগুলো সরিয়ে খামটি খুলুন</p>
+<div id="salami-screen" class="screen hidden">
+    <h1 style="font-size: 1.5rem;">The Lucky Packets</h1>
+    <p style="font-size: 0.8rem; letter-spacing: 2px;">Catch 3 red packets to continue!</p>
+    <div id="game-area" style="width: 100%; height: 60vh; position: relative;"></div>
+    <div id="status" style="font-size: 1.2rem; color: var(--gold);">Packets: <span id="count">0</span>/3</div>
+</div>
+
+<div id="reveal-screen" class="screen hidden">
+    <div class="lantern-container" id="lantern-zone">
+        <div id="lantern" class="lantern-off">🏮</div>
     </div>
+    <h1 style="font-size: 1rem; margin-top: 20px; opacity: 0.8; letter-spacing: 2px;">LIGHT THE LANTERN</h1>
 </div>
 
-<div id="builder" class="screen hidden">
-    <div style="max-width: 600px; margin: auto; padding-bottom: 50px;">
-        <h1>ঈদ মোবারক, <span id="wishName"></span></h1>
-        
-        <div id="letter-content">
-            <div id="typewriter-text"></div>
-            
-            <div style="margin-top: 40px;">
-                <p style="font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: #888; font-family: 'Hind Siliguri';">আপনার পছন্দের ফুলের তোড়াটি সাজান</p>
-                <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
-                    <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌹')">🌹</span>
-                    <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌷')">🌷</span>
-                    <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌸')">🌸</span>
-                    <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌻')">🌻</span>
-                </div>
-                <div class="bouquet-box">
-                    <div id="bouquet" class="bouquet-area"></div>
-                    <div class="bouquet-wrap"></div>
-                </div>
-            </div>
-
-            <div class="signature">ইতি, জিনিয়া</div>
-            <button class="btn-premium" style="color: #444; border-color: #444;" onclick="location.reload()">আবার দেখুন</button>
-        </div>
+<div id="final-card" class="screen hidden">
+    <div style="padding: 40px 0;">
+        <h1 style="color: #444; font-size: 2.2rem;">Eid Mubarak, <span id="displayRecipient"></span></h1>
+        <img src="OIP.jpeg" alt="Bouquet" class="bouquet-img">
+        <div id="typewriter-text"></div>
+        <div style="font-family: 'Cormorant Garamond'; font-size: 1.8rem; color: var(--gold); font-weight: bold; margin-top: 10px;">From <span id="displaySender"></span></div>
+        <button class="btn-premium" style="color:#444; border-color:#444;" onclick="location.reload()">Replay</button>
     </div>
 </div>
 
 <script>
-    let name = "";
+    let sender = "";
+    let recipient = "";
+    let packetsCaught = 0;
+    let typingTimer;
     const bgCanvas = document.getElementById('bg-canvas'), bgCtx = bgCanvas.getContext('2d');
-    const petalCanvas = document.getElementById('petal-canvas'), pCtx = petalCanvas.getContext('2d');
-    let particles = [], petals = [];
+    let stars = [];
 
-    // Resize Handler
-    window.addEventListener('resize', () => {
-        bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
-        petalCanvas.width = window.innerWidth; petalCanvas.height = window.innerHeight;
-        drawPetals();
-    });
-
-    // Background Stars
     function initBg() {
         bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
-        for(let i=0; i<70; i++) particles.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, r:Math.random()*1.2, s:Math.random()*0.4});
+        stars = [];
+        for(let i=0; i<100; i++) stars.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, r:Math.random()*1.2, s:Math.random()*0.2});
     }
     function drawBg() {
         bgCtx.clearRect(0,0,bgCanvas.width, bgCanvas.height);
-        bgCtx.fillStyle = "rgba(197, 160, 89, 0.4)";
-        particles.forEach(p => {
-            bgCtx.beginPath(); bgCtx.arc(p.x, p.y, p.r, 0, Math.PI*2); bgCtx.fill();
-            p.y += p.s; if(p.y > bgCanvas.height) p.y = 0;
+        bgCtx.fillStyle = "white";
+        stars.forEach(s => {
+            bgCtx.beginPath(); bgCtx.arc(s.x, s.y, s.r, 0, Math.PI*2); bgCtx.fill();
+            s.y += s.s; if(s.y > bgCanvas.height) s.y = 0;
         });
         requestAnimationFrame(drawBg);
     }
     initBg(); drawBg();
+    window.addEventListener('resize', initBg);
 
-    // Petal Rain Logic
-    function initPetals() {
-        petalCanvas.width = window.innerWidth; petalCanvas.height = window.innerHeight;
-        petals = [];
-        for(let i=0; i<150; i++) {
-            petals.push({
-                x: Math.random() * petalCanvas.width,
-                y: Math.random() * petalCanvas.height,
-                size: 15 + Math.random() * 15,
-                color: `rgba(${200 + Math.random()*55}, ${50 + Math.random()*50}, ${80 + Math.random()*50}, 0.9)`,
-                angle: Math.random() * 360,
-                removed: false
-            });
+    function startSalamiGame() {
+        sender = document.getElementById('senderName').value || "Jinia";
+        recipient = document.getElementById('recipientName').value || "Guest";
+        document.getElementById('home').classList.add('hidden');
+        document.getElementById('salami-screen').classList.remove('hidden');
+        for(let i=0; i<3; i++) createPacket();
+    }
+
+    function createPacket() {
+        const p = document.createElement('div');
+        p.className = 'packet'; p.innerHTML = "🧧";
+        const area = document.getElementById('game-area');
+        area.appendChild(p);
+        
+        let posX = Math.random() * (window.innerWidth - 50);
+        let posY = Math.random() * (window.innerHeight * 0.4);
+        let velX = (Math.random() - 0.5) * 4;
+        let velY = (Math.random() - 0.5) * 4;
+
+        function animate() {
+            if(!p.parentNode) return;
+            posX += velX; posY += velY;
+            if(posX < 0 || posX > window.innerWidth - 50) velX *= -1;
+            if(posY < 0 || posY > area.clientHeight - 50) velY *= -1;
+            p.style.left = posX + 'px'; p.style.top = posY + 'px';
+            requestAnimationFrame(animate);
         }
+        animate();
+
+        p.onclick = () => {
+            p.remove();
+            packetsCaught++;
+            document.getElementById('count').innerText = packetsCaught;
+            if(packetsCaught === 3) startLanternReveal();
+        };
     }
 
-    function drawPetals() {
-        pCtx.clearRect(0,0,petalCanvas.width, petalCanvas.height);
-        petals.forEach(p => {
-            if(!p.removed) {
-                pCtx.save();
-                pCtx.translate(p.x, p.y);
-                pCtx.rotate(p.angle * Math.PI / 180);
-                pCtx.fillStyle = p.color;
-                pCtx.beginPath();
-                pCtx.ellipse(0, 0, p.size, p.size/1.5, 0, 0, Math.PI*2);
-                pCtx.fill();
-                pCtx.restore();
-            }
-        });
-    }
-
-    function handleMove(e) {
+    const moveHandler = (e) => {
         const x = e.touches ? e.touches[0].clientX : e.clientX;
         const y = e.touches ? e.touches[0].clientY : e.clientY;
-        petals.forEach(p => {
-            const dist = Math.hypot(p.x - x, p.y - y);
-            if(dist < 50) p.removed = true;
-        });
-        drawPetals();
-        checkClearance();
-    }
+        const flame = document.getElementById('flame');
+        // Offset for finger/mouse
+        flame.style.left = (x - 15) + 'px';
+        flame.style.top = (y - 45) + 'px'; 
 
-    function checkClearance() {
-        const remaining = petals.filter(p => !p.removed).length;
-        if(remaining < 20) {
-            petalCanvas.style.opacity = '0';
-            petalCanvas.style.pointerEvents = 'none';
-            setTimeout(() => {
-                document.getElementById('env-wrap').onclick = openLetter;
-                document.getElementById('env-wrap').style.cursor = 'pointer';
-            }, 500);
+        const lZone = document.getElementById('lantern-zone').getBoundingClientRect();
+        if(x > lZone.left && x < lZone.right && y > lZone.top && y < lZone.bottom) {
+            document.getElementById('lantern').style.filter = "grayscale(0) brightness(1.5)";
+            document.getElementById('lantern').style.textShadow = "0 0 50px orange";
+            
+            // Remove listeners once activated
+            window.removeEventListener('mousemove', moveHandler);
+            window.removeEventListener('touchmove', moveHandler);
+            
+            setTimeout(showFinal, 1000);
         }
-    }
+    };
 
-    function startExperience() {
-        name = document.getElementById('userName').value || "প্রিয়জন";
-        document.getElementById('home').classList.add('hidden');
+    function startLanternReveal() {
+        document.getElementById('salami-screen').classList.add('hidden');
         document.getElementById('reveal-screen').classList.remove('hidden');
+        document.getElementById('flame').classList.remove('hidden');
         
-        const music = document.getElementById('bgMusic');
-        music.play().catch(() => console.log("Audio waiting for interaction"));
-
-        initPetals(); drawPetals();
-        petalCanvas.addEventListener('mousemove', handleMove);
-        petalCanvas.addEventListener('touchmove', e => { e.preventDefault(); handleMove(e); }, {passive:false});
+        window.addEventListener('mousemove', moveHandler);
+        window.addEventListener('touchmove', moveHandler, {passive: false});
     }
 
-    function openLetter() {
-        document.getElementById('env').classList.add('open');
-        setTimeout(() => {
-            document.getElementById('reveal-screen').classList.add('hidden');
-            document.getElementById('builder').classList.remove('hidden');
-            document.getElementById('wishName').innerText = name;
-            typeWish();
-        }, 1500);
+    function showFinal() {
+        document.getElementById('reveal-screen').classList.add('hidden');
+        document.getElementById('flame').classList.add('hidden');
+        document.getElementById('final-card').classList.remove('hidden');
+        document.getElementById('displayRecipient').innerText = recipient;
+        document.getElementById('displaySender').innerText = sender;
+        typeWish();
     }
 
     function typeWish() {
-        const wish = "ঈদের এই পবিত্র ক্ষণে, আপনার জীবন হয়ে উঠুক এই পাপড়িগুলোর মতোই সুগন্ধি এবং অমলিন। সর্বশক্তিমান আপনাকে দান করুক রুপালি চাঁদের স্নিগ্ধতা আর সোনালি সূর্যের দীপ্তি। আপনার ঘর ভরে উঠুক ভালোবাসার উষ্ণতায় এবং হৃদয় ভরে উঠুক প্রশান্তিতে। আপনার আভিজাত্য এবং ব্যক্তিত্বের মতোই সুন্দর হোক আপনার এই ঈদ উদযাপন। ঈদ মোবারক!";
+        clearTimeout(typingTimer);
+        const wish = "In the light of this sacred celebration, may your journey be filled with peace and elegance. May your life bloom with the same beauty and grace as these flowers. Wishing you a magnificent Eid filled with love. Eid Mubarak!";
         let i = 0;
         const target = document.getElementById('typewriter-text');
-        target.innerHTML = ""; 
+        target.innerHTML = "";
+        
         function typing() {
             if(i < wish.length) {
-                target.innerHTML += wish.charAt(i);
-                i++;
-                setTimeout(typing, 50);
+                target.innerHTML += wish.charAt(i); i++;
+                typingTimer = setTimeout(typing, 40);
             }
         }
         typing();
-    }
-
-    function addFlower(emoji) {
-        const f = document.createElement('span');
-        f.className = 'flower-item'; f.innerHTML = emoji;
-        document.getElementById('bouquet').appendChild(f);
     }
 </script>
 </body>
