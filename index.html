@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Eid Mubarak | A Celestial Gift</title>
+<title>Eid Mystery Salami Hunt | From Jinia</title>
 <style>
     :root {
         --gold: #D4AF37;
         --navy: #001F3F;
-        --cream: #FFF8E1;
+        --money: #2ecc71;
     }
 
     body {
         margin: 0;
-        padding: 0;
         font-family: 'Playfair Display', serif;
         background: var(--navy);
         color: white;
@@ -24,21 +23,7 @@
 
     .hidden { display: none !important; }
 
-    /* Floating Lanterns Decoration */
-    .lantern {
-        position: absolute;
-        top: -10px;
-        font-size: 35px;
-        z-index: 5;
-        animation: sway 3s ease-in-out infinite;
-        transform-origin: top center;
-    }
-    @keyframes sway {
-        0%, 100% { transform: rotate(-12deg); }
-        50% { transform: rotate(12deg); }
-    }
-
-    /* Home Screen */
+    /* UI Screens */
     .screen {
         height: 100vh;
         display: flex;
@@ -47,215 +32,268 @@
         align-items: center;
         padding: 20px;
         box-sizing: border-box;
-        background: radial-gradient(circle at center, #003366 0%, #001F3F 100%);
     }
-
-    h1 {
-        font-size: 2.8rem;
-        color: var(--gold);
-        margin-bottom: 10px;
-        letter-spacing: 2px;
-        text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-    }
-
-    p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; font-style: italic; }
 
     .btn-gold {
-        padding: 14px 40px;
-        font-size: 1rem;
+        padding: 12px 35px;
         background: transparent;
         color: var(--gold);
-        border: 1px solid var(--gold);
-        border-radius: 50px;
+        border: 2px solid var(--gold);
+        border-radius: 5px;
         cursor: pointer;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        font-weight: bold;
         transition: 0.3s;
+        margin-top: 15px;
     }
+
     .btn-gold:hover { background: var(--gold); color: var(--navy); }
 
     /* Game Arena */
-    #game-arena {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-    }
-
+    #game-arena { position: relative; width: 100%; height: 100vh; background: #000b18; }
     #basket {
         position: absolute;
         bottom: 80px;
         width: 100px;
-        height: 12px;
+        height: 15px;
         background: var(--gold);
-        border-radius: 10px;
-        box-shadow: 0 0 20px var(--gold);
+        border-radius: 5px;
+        box-shadow: 0 0 15px var(--gold);
+    }
+
+    .drop { position: absolute; font-size: 35px; }
+
+    /* Puzzle Overlay */
+    #puzzle-box {
+        position: absolute;
+        top: 50%;
         left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .drop {
-        position: absolute;
-        font-size: 30px;
-        filter: drop-shadow(0 0 8px gold);
-    }
-
-    #stats {
-        position: absolute;
-        top: 60px;
-        width: 100%;
-        font-size: 1.2rem;
-        color: var(--gold);
-        font-weight: bold;
-        letter-spacing: 1px;
-    }
-
-    /* Long Elegant Letter */
-    #letter {
-        background: var(--cream);
-        color: var(--navy);
-        display: block;
-        overflow-y: auto;
-    }
-
-    .letter-content {
-        max-width: 90%;
-        margin: 40px auto;
-        padding: 50px 25px;
-        border: 1px solid rgba(212, 175, 55, 0.3);
+        transform: translate(-50%, -50%);
         background: white;
-        box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+        color: #333;
+        padding: 25px;
         border-radius: 15px;
+        box-shadow: 0 0 50px rgba(212, 175, 55, 0.8);
+        z-index: 100;
+        width: 85%;
     }
 
-    .letter-content h2 { color: var(--gold); font-size: 2.4rem; margin-bottom: 25px; }
-    .letter-content p { 
-        color: #333; 
-        line-height: 1.8; 
-        font-size: 1.1rem; 
-        margin-bottom: 20px; 
-        opacity: 0; 
-        transition: 1.2s ease-in;
-        text-align: justify;
+    /* Bouquet Designer */
+    #builder { background: #fff; color: #333; overflow-y: auto; height: 100vh; display: block; }
+    .bouquet-area {
+        width: 220px;
+        height: 250px;
+        border: 2px dashed var(--gold);
+        margin: 20px auto;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-end;
+        padding: 15px;
+        background: #fffdf5;
+        border-radius: 50% 50% 15px 15px;
     }
-    .letter-content p.visible { opacity: 1; }
-    
-    .signature { text-align: right !important; margin-top: 40px !important; font-style: italic; color: var(--gold) !important; font-size: 1.3rem !important;}
+    .flower-item { font-size: 30px; margin: -6px; }
+
+    .signature {
+        margin-top: 30px;
+        font-style: italic;
+        color: var(--gold);
+        font-size: 1.4rem;
+        text-align: right;
+        width: 100%;
+        max-width: 500px;
+    }
 
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="lantern" style="left: 8%;">🏮</div>
-<div class="lantern" style="right: 8%; animation-delay: 1.5s;">🏮</div>
-
-<audio id="peacefulMusic" loop>
+<audio id="lofiMusic" loop>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
 </audio>
 
 <div id="home" class="screen">
-    <div style="font-size: 65px; margin-bottom: 20px;">🎁</div>
-    <h1>EID MUBARAK</h1>
-    <p>A celestial gift is waiting for you...</p>
-    <button class="btn-gold" onclick="startExperience()">Open Your Gift</button>
+    <h1 style="color: var(--gold); font-size: 2.5rem;">EID MYSTERY HUNT</h1>
+    <p>Catch Salami, Solve Riddles & Build your Bouquet!</p>
+    <button class="btn-gold" onclick="startGame()">Start Experience</button>
 </div>
 
 <div id="game-arena" class="hidden">
-    <div id="stats">Blessings Caught: <span id="score">0</span></div>
-    <div id="basket"></div>
+    <div id="stats" style="padding-top: 60px; font-size: 1.3rem; color: var(--gold);">
+        Wallet: $<span id="score">0</span>
+    </div>
+    <div id="basket" style="left: 50%; transform: translateX(-50%);"></div>
+
+    <div id="puzzle-box" class="hidden">
+        <h3 id="puzzle-text">Riddle: I have keys but no locks. What am I?</h3>
+        <input type="text" id="puzzle-input" placeholder="Your answer..." style="padding: 10px; width: 85%; border: 1px solid #ccc; border-radius: 5px;">
+        <br>
+        <button class="btn-gold" style="color: #333; border-color: #333;" onclick="checkAnswer()">Unlock Salami</button>
+    </div>
 </div>
 
-<div id="letter" class="hidden screen">
-    <div class="letter-content">
-        <div style="font-size: 45px; margin-bottom: 15px;">🌙</div>
-        <h2>Eid-ul-Fitr Mubarak</h2>
-        <p class="wish">My Dearest Friend,</p>
-        <p class="wish">As the silver crescent moon marks the end of the holy month of Ramadan, I find myself reflecting on the beauty of our bond and the blessings we share. This Eid, I wanted to send you something more than just a message—a small token of my appreciation for your presence in my life.</p>
-        <p class="wish">May the Almighty shower His countless blessings upon you and your beloved family. May this day bring you the kind of peace that stays in your heart forever, the kind of joy that brightens your darkest days, and the kind of prosperity that knows no bounds.</p>
-        <p class="wish">May every prayer you've made during the silent nights of Ramadan be answered with grace. Let this celebration be a reminder of the love that surrounds us and the faith that guides us towards a better tomorrow.</p>
-        <p class="wish">Wishing you a celebration filled with laughter, delicious feasts, and cherished moments that turn into lifelong memories. Have a truly wonderful Eid.</p>
-        <p class="wish signature"><strong>Warmest Wishes, <br> From your Friend</strong></p>
+<div id="builder" class="screen hidden">
+    <div style="max-width: 500px; margin: auto; padding: 20px;">
+        <h2 style="color: var(--gold); font-size: 2.2rem; margin-bottom: 5px;">Eid Mubarak! 🌙</h2>
+        <p>Total Salami Collected: <strong>$<span id="final-score">0</span></strong></p>
         
-        <button class="btn-gold" style="margin-top: 30px;" onclick="location.reload()">Replay Experience</button>
+        <div style="background: #fdf2e9; padding: 20px; border-radius: 15px; margin: 15px 0;">
+            <p style="margin-top: 0;"><strong>Design your Flower Bouquet:</strong></p>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 10px;">
+                <button class="btn-gold" style="padding: 8px 15px; margin:0;" onclick="addFlower('🌹')">🌹</button>
+                <button class="btn-gold" style="padding: 8px 15px; margin:0;" onclick="addFlower('🌸')">🌸</button>
+                <button class="btn-gold" style="padding: 8px 15px; margin:0;" onclick="addFlower('🌷')">🌷</button>
+                <button class="btn-gold" style="padding: 8px 15px; margin:0;" onclick="addFlower('🌻')">🌻</button>
+            </div>
+            <div id="bouquet" class="bouquet-area"></div>
+        </div>
+
+        <p style="font-size: 1rem; line-height: 1.6; color: #444;">"May your life be as colorful and joyful as the bouquet you've created today."</p>
+        
+        <div class="signature">From Jinia</div>
+
+        <button class="btn-gold" style="color: #333; border-color: #333; margin-top: 40px;" onclick="location.reload()">Replay Experience</button>
     </div>
 </div>
 
 <script>
     let score = 0;
     let gameActive = false;
+    let puzzleActive = false;
+    let currentPuzzleAnswer = "";
     const basket = document.getElementById('basket');
     const arena = document.getElementById('game-arena');
-    const music = document.getElementById('peacefulMusic');
+    const music = document.getElementById('lofiMusic');
     let basketX = window.innerWidth / 2 - 50;
 
-    function startExperience() {
-        music.play().catch(e => console.log("Music interaction required"));
+    const puzzles = [
+        { q: "What has a face and two hands but no arms or legs?", a: "clock" },
+        { q: "The more of this there is, the less you see. What is it?", a: "darkness" },
+        { q: "What has to be broken before you can use it?", a: "egg" },
+        { q: "I am full of holes but still hold water. What am I?", a: "sponge" }
+    ];
+
+    function startGame() {
+        music.play().catch(() => {});
         document.getElementById('home').classList.add('hidden');
         arena.classList.remove('hidden');
         gameActive = true;
-        
-        const moveHandler = (e) => {
-            if(!gameActive) return;
-            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            basketX = clientX - 50;
+
+        const move = (e) => {
+            if(puzzleActive) return;
+            let x = e.touches ? e.touches[0].clientX : e.clientX;
+            basketX = x - 50;
             if(basketX < 0) basketX = 0;
             if(basketX > window.innerWidth - 100) basketX = window.innerWidth - 100;
             basket.style.left = basketX + 'px';
-            basket.style.transform = 'none';
         };
+        arena.addEventListener('touchmove', (e) => { e.preventDefault(); move(e); }, {passive: false});
+        arena.addEventListener('mousemove', move);
 
-        arena.addEventListener('touchmove', (e) => { e.preventDefault(); moveHandler(e); }, {passive: false});
-        arena.addEventListener('mousemove', moveHandler);
-
-        spawnLoop();
-        setTimeout(finishGame, 10000); // গেমটি ১০ সেকেন্ড চলবে
+        spawnItems();
+        setTimeout(endGame, 20000); 
     }
 
-    function createDrop() {
-        if(!gameActive) return;
-        const drop = document.createElement('div');
-        drop.className = 'drop';
-        const items = ['🎁', '⭐', '🌙', '✨', '💎', '🍬'];
-        drop.innerHTML = items[Math.floor(Math.random() * items.length)];
-        drop.style.left = Math.random() * (window.innerWidth - 40) + 'px';
-        drop.style.top = '-60px';
-        arena.appendChild(drop);
+    function createItem() {
+        if(!gameActive || puzzleActive) return;
+        const item = document.createElement('div');
+        const rand = Math.random();
+        
+        item.className = 'drop';
+        if(rand > 0.9) {
+            item.innerHTML = '🎁'; 
+            item.dataset.type = "chest";
+        } else if(rand > 0.75) {
+            item.innerHTML = '💣'; 
+            item.dataset.type = "bomb";
+        } else {
+            item.innerHTML = '💵'; 
+            item.dataset.type = "cash";
+        }
 
-        let fallSpeed = Math.random() * 2 + 4;
-        let currentY = -60;
+        item.style.left = Math.random() * (window.innerWidth - 40) + 'px';
+        item.style.top = '-50px';
+        arena.appendChild(item);
 
-        const fallInterval = setInterval(() => {
-            if(!gameActive) { clearInterval(fallInterval); drop.remove(); return; }
-            currentY += fallSpeed;
-            drop.style.top = currentY + 'px';
+        let speed = Math.random() * 2 + 4;
+        let y = -50;
 
-            if(currentY > window.innerHeight - 100 && currentY < window.innerHeight - 60) {
-                let dropX = parseFloat(drop.style.left);
-                if(dropX > basketX - 15 && dropX < basketX + 100) {
-                    score++;
-                    document.getElementById('score').innerText = score;
-                    clearInterval(fallInterval);
-                    drop.remove();
+        const fall = setInterval(() => {
+            if(!gameActive || puzzleActive) { clearInterval(fall); item.remove(); return; }
+            y += speed;
+            item.style.top = y + 'px';
+
+            if(y > window.innerHeight - 100 && y < window.innerHeight - 60) {
+                let ix = parseFloat(item.style.left);
+                if(ix > basketX - 25 && ix < basketX + 100) {
+                    handleCollision(item.dataset.type);
+                    clearInterval(fall);
+                    item.remove();
                 }
             }
-            if(currentY > window.innerHeight) { clearInterval(fallInterval); drop.remove(); }
+            if(y > window.innerHeight) { clearInterval(fall); item.remove(); }
         }, 20);
     }
 
-    function spawnLoop() {
-        if(gameActive) { createDrop(); setTimeout(spawnLoop, 500); }
+    function handleCollision(type) {
+        if(type === "cash") {
+            score += 10;
+        } else if(type === "bomb") {
+            score = Math.max(0, score - 30);
+            arena.style.background = "#ff000033";
+            setTimeout(() => arena.style.background = "#000b18", 100);
+        } else if(type === "chest") {
+            triggerPuzzle();
+        }
+        document.getElementById('score').innerText = score;
     }
 
-    function finishGame() {
+    function triggerPuzzle() {
+        puzzleActive = true;
+        const p = puzzles[Math.floor(Math.random() * puzzles.length)];
+        currentPuzzleAnswer = p.a;
+        document.getElementById('puzzle-text').innerText = p.q;
+        document.getElementById('puzzle-box').classList.remove('hidden');
+    }
+
+    function checkAnswer() {
+        const input = document.getElementById('puzzle-input').value.toLowerCase().trim();
+        if(input === currentPuzzleAnswer) {
+            score += 100;
+            alert("Correct! +$100 Salami!");
+        } else {
+            score = Math.floor(score / 2);
+            alert("Wrong! Googly! Salami slashed by 50%!");
+        }
+        document.getElementById('score').innerText = score;
+        document.getElementById('puzzle-input').value = "";
+        document.getElementById('puzzle-box').classList.add('hidden');
+        puzzleActive = false;
+    }
+
+    function spawnItems() {
+        if(gameActive) {
+            createItem();
+            setTimeout(spawnItems, 600);
+        }
+    }
+
+    function addFlower(emoji) {
+        const bouquet = document.getElementById('bouquet');
+        const f = document.createElement('span');
+        f.className = 'flower-item';
+        f.innerHTML = emoji;
+        bouquet.appendChild(f);
+    }
+
+    function endGame() {
         gameActive = false;
         arena.classList.add('hidden');
-        document.getElementById('letter').classList.remove('hidden');
-        const wishes = document.querySelectorAll('.wish');
-        wishes.forEach((w, i) => {
-            setTimeout(() => { w.classList.add('visible'); }, i * 1100);
-        });
+        document.getElementById('builder').classList.remove('hidden');
+        document.getElementById('final-score').innerText = score;
     }
 </script>
-
 </body>
 </html>
