@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Eid Mubarak | Celestial Grace</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
-<style>
-    :root { --gold: #C5A059; --navy: #000b18; --cream: #fffdf5; }
-    body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--navy); color: white; overflow: hidden; touch-action: none; }
-    .hidden { display: none !important; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eid Mubarak | Celestial Grace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #C5A059; --navy: #000b18; --cream: #fffdf5; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--navy); color: white; overflow: hidden; touch-action: none; }
+        .hidden { display: none !important; }
 
-    #bg-canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
-    .screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; position: relative; text-align: center; padding: 20px; }
-    
-    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 5px; color: var(--gold); font-size: 3rem; }
-    .btn-premium { padding: 12px 35px; background: transparent; color: var(--gold); border: 1px solid var(--gold); cursor: pointer; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; transition: 0.5s; margin-top: 20px; }
-    .btn-premium:hover { background: var(--gold); color: var(--navy); box-shadow: 0 0 20px var(--gold); }
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
+        .screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; position: relative; text-align: center; padding: 20px; box-sizing: border-box; }
+        
+        h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 5px; color: var(--gold); font-size: 3rem; margin: 10px 0; }
+        .btn-premium { padding: 12px 35px; background: transparent; color: var(--gold); border: 1px solid var(--gold); cursor: pointer; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; transition: 0.5s; margin-top: 20px; }
+        .btn-premium:hover { background: var(--gold); color: var(--navy); box-shadow: 0 0 20px var(--gold); }
 
-    input.premium-input {
-        background: transparent; border: none; border-bottom: 1px solid var(--gold);
-        color: white; text-align: center; padding: 10px; outline: none;
-        font-size: 1.1rem; margin-top: 15px; width: 250px; font-family: 'Montserrat', sans-serif;
-    }
+        input.premium-input {
+            background: transparent; border: none; border-bottom: 1px solid var(--gold);
+            color: white; text-align: center; padding: 10px; outline: none;
+            font-size: 1.1rem; margin-top: 15px; width: 250px; font-family: 'Montserrat', sans-serif;
+        }
 
-    .packet { position: absolute; font-size: 45px; cursor: pointer; transition: 0.1s; user-select: none; z-index: 20; }
+        .packet { position: absolute; font-size: 45px; cursor: pointer; transition: transform 0.1s; user-select: none; z-index: 20; }
 
-    .lantern-container { position: relative; width: 200px; height: 250px; cursor: grab; }
-    .lantern-off { font-size: 120px; filter: grayscale(1) brightness(0.5); transition: 1.5s; }
-    .flame-cursor { position: absolute; width: 30px; height: 30px; background: radial-gradient(circle, #ffcc00, transparent); border-radius: 50%; box-shadow: 0 0 20px #ffcc00; pointer-events: none; z-index: 9999; }
+        .lantern-container { position: relative; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center; }
+        .lantern-off { font-size: 120px; filter: grayscale(1) brightness(0.5); transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .flame-cursor { position: fixed; width: 40px; height: 40px; background: radial-gradient(circle, rgba(255,204,0,0.8), transparent 70%); border-radius: 50%; box-shadow: 0 0 30px #ffcc00; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); }
 
-    #final-card { background: var(--cream); color: #444; overflow-y: auto; display: block; }
-    .bouquet-img { width: 260px; border: 10px solid white; box-shadow: 0 15px 40px rgba(0,0,0,0.15); margin-top: 15px; border-radius: 5px; }
-    #typewriter-text { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; line-height: 1.8; max-width: 85%; margin: 20px auto; font-style: italic; font-weight: 600; }
-</style>
+        /* Fix for the final card to allow scrolling on small phones */
+        #final-card { background: var(--cream); color: #444; overflow-y: auto; display: flex; flex-direction: column; justify-content: flex-start; }
+        .bouquet-img { width: 80%; max-width: 300px; border: 10px solid white; box-shadow: 0 15px 40px rgba(0,0,0,0.15); margin: 20px auto; border-radius: 5px; display: block; }
+        #typewriter-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; line-height: 1.6; max-width: 90%; margin: 10px auto; font-style: italic; font-weight: 600; min-height: 100px; }
+    </style>
 </head>
 <body>
 
@@ -49,8 +50,8 @@
 
 <div id="salami-screen" class="screen hidden">
     <h1 style="font-size: 1.5rem;">The Lucky Packets</h1>
-    <p style="font-size: 0.8rem; letter-spacing: 2px;">Catch 3 red packets to continue!</p>
-    <div id="game-area" style="width: 100%; height: 60vh; position: relative;"></div>
+    <p style="font-size: 0.8rem; letter-spacing: 2px;">Catch 3 red packets to receive your gift!</p>
+    <div id="game-area" style="width: 100%; height: 60vh; position: relative; overflow: hidden;"></div>
     <div id="status" style="font-size: 1.2rem; color: var(--gold);">Packets: <span id="count">0</span>/3</div>
 </div>
 
@@ -58,135 +59,10 @@
     <div class="lantern-container" id="lantern-zone">
         <div id="lantern" class="lantern-off">🏮</div>
     </div>
-    <h1 style="font-size: 1rem; margin-top: 20px; opacity: 0.8; letter-spacing: 2px;">LIGHT THE LANTERN</h1>
+    <h1 style="font-size: 1rem; margin-top: 30px; opacity: 0.8; letter-spacing: 2px;">DRAG THE LIGHT TO THE LANTERN</h1>
 </div>
 
 <div id="final-card" class="screen hidden">
-    <div style="padding: 40px 0;">
-        <h1 style="color: #444; font-size: 2.2rem;">Eid Mubarak, <span id="displayRecipient"></span></h1>
-        <img src="OIP.jpeg" alt="Bouquet" class="bouquet-img">
-        <div id="typewriter-text"></div>
-        <div style="font-family: 'Cormorant Garamond'; font-size: 1.8rem; color: var(--gold); font-weight: bold; margin-top: 10px;">From <span id="displaySender"></span></div>
-        <button class="btn-premium" style="color:#444; border-color:#444;" onclick="location.reload()">Replay</button>
-    </div>
-</div>
-
-<script>
-    let sender = "";
-    let recipient = "";
-    let packetsCaught = 0;
-    let typingTimer;
-    const bgCanvas = document.getElementById('bg-canvas'), bgCtx = bgCanvas.getContext('2d');
-    let stars = [];
-
-    function initBg() {
-        bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
-        stars = [];
-        for(let i=0; i<100; i++) stars.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, r:Math.random()*1.2, s:Math.random()*0.2});
-    }
-    function drawBg() {
-        bgCtx.clearRect(0,0,bgCanvas.width, bgCanvas.height);
-        bgCtx.fillStyle = "white";
-        stars.forEach(s => {
-            bgCtx.beginPath(); bgCtx.arc(s.x, s.y, s.r, 0, Math.PI*2); bgCtx.fill();
-            s.y += s.s; if(s.y > bgCanvas.height) s.y = 0;
-        });
-        requestAnimationFrame(drawBg);
-    }
-    initBg(); drawBg();
-    window.addEventListener('resize', initBg);
-
-    function startSalamiGame() {
-        sender = document.getElementById('senderName').value || "Jinia";
-        recipient = document.getElementById('recipientName').value || "Guest";
-        document.getElementById('home').classList.add('hidden');
-        document.getElementById('salami-screen').classList.remove('hidden');
-        for(let i=0; i<3; i++) createPacket();
-    }
-
-    function createPacket() {
-        const p = document.createElement('div');
-        p.className = 'packet'; p.innerHTML = "🧧";
-        const area = document.getElementById('game-area');
-        area.appendChild(p);
-        
-        let posX = Math.random() * (window.innerWidth - 50);
-        let posY = Math.random() * (window.innerHeight * 0.4);
-        let velX = (Math.random() - 0.5) * 4;
-        let velY = (Math.random() - 0.5) * 4;
-
-        function animate() {
-            if(!p.parentNode) return;
-            posX += velX; posY += velY;
-            if(posX < 0 || posX > window.innerWidth - 50) velX *= -1;
-            if(posY < 0 || posY > area.clientHeight - 50) velY *= -1;
-            p.style.left = posX + 'px'; p.style.top = posY + 'px';
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        p.onclick = () => {
-            p.remove();
-            packetsCaught++;
-            document.getElementById('count').innerText = packetsCaught;
-            if(packetsCaught === 3) startLanternReveal();
-        };
-    }
-
-    const moveHandler = (e) => {
-        const x = e.touches ? e.touches[0].clientX : e.clientX;
-        const y = e.touches ? e.touches[0].clientY : e.clientY;
-        const flame = document.getElementById('flame');
-        // Offset for finger/mouse
-        flame.style.left = (x - 15) + 'px';
-        flame.style.top = (y - 45) + 'px'; 
-
-        const lZone = document.getElementById('lantern-zone').getBoundingClientRect();
-        if(x > lZone.left && x < lZone.right && y > lZone.top && y < lZone.bottom) {
-            document.getElementById('lantern').style.filter = "grayscale(0) brightness(1.5)";
-            document.getElementById('lantern').style.textShadow = "0 0 50px orange";
-            
-            // Remove listeners once activated
-            window.removeEventListener('mousemove', moveHandler);
-            window.removeEventListener('touchmove', moveHandler);
-            
-            setTimeout(showFinal, 1000);
-        }
-    };
-
-    function startLanternReveal() {
-        document.getElementById('salami-screen').classList.add('hidden');
-        document.getElementById('reveal-screen').classList.remove('hidden');
-        document.getElementById('flame').classList.remove('hidden');
-        
-        window.addEventListener('mousemove', moveHandler);
-        window.addEventListener('touchmove', moveHandler, {passive: false});
-    }
-
-    function showFinal() {
-        document.getElementById('reveal-screen').classList.add('hidden');
-        document.getElementById('flame').classList.add('hidden');
-        document.getElementById('final-card').classList.remove('hidden');
-        document.getElementById('displayRecipient').innerText = recipient;
-        document.getElementById('displaySender').innerText = sender;
-        typeWish();
-    }
-
-    function typeWish() {
-        clearTimeout(typingTimer);
-        const wish = "In the light of this sacred celebration, may your journey be filled with peace and elegance. May your life bloom with the same beauty and grace as these flowers. Wishing you a magnificent Eid filled with love. Eid Mubarak!";
-        let i = 0;
-        const target = document.getElementById('typewriter-text');
-        target.innerHTML = "";
-        
-        function typing() {
-            if(i < wish.length) {
-                target.innerHTML += wish.charAt(i); i++;
-                typingTimer = setTimeout(typing, 40);
-            }
-        }
-        typing();
-    }
-</script>
-</body>
-</html>
+    <div style="width: 100%; padding-bottom: 40px;">
+        <h1 style="color: #444; font-size: 1.8rem; margin-top: 40px;">Eid Mubarak, <span id="displayRecipient"></span></h1>
+        <img src="
