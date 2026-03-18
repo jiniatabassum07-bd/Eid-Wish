@@ -3,296 +3,270 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Eid Mystery Salami Hunt | From Jinia</title>
+<title>Eid Mubarak | Eternal Elegance by Jinia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
 <style>
     :root {
-        --gold: #D4AF37;
-        --navy: #001F3F;
-        --money: #2ecc71;
+        --gold: #C5A059;
+        --navy: #000b18;
+        --cream: #fffdf5;
     }
 
     body {
         margin: 0;
-        font-family: 'Playfair Display', serif;
+        font-family: 'Montserrat', sans-serif;
         background: var(--navy);
         color: white;
         overflow: hidden;
-        text-align: center;
         touch-action: none;
     }
 
     .hidden { display: none !important; }
 
-    /* UI Screens */
+    /* Luxury Background Particles */
+    #bg-canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
+
     .screen {
         height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        z-index: 10;
+        position: relative;
+        text-align: center;
         padding: 20px;
-        box-sizing: border-box;
     }
 
-    .btn-gold {
+    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 5px; color: var(--gold); font-size: 3rem; }
+    
+    .btn-premium {
         padding: 12px 35px;
         background: transparent;
         color: var(--gold);
-        border: 2px solid var(--gold);
-        border-radius: 5px;
+        border: 1px solid var(--gold);
         cursor: pointer;
         text-transform: uppercase;
-        font-weight: bold;
-        transition: 0.3s;
-        margin-top: 15px;
+        letter-spacing: 3px;
+        font-size: 0.8rem;
+        transition: 0.5s;
+        margin-top: 20px;
+    }
+    .btn-premium:hover { background: var(--gold); color: var(--navy); box-shadow: 0 0 20px var(--gold); }
+
+    /* Petal Rain Interaction Area */
+    #petal-canvas {
+        position: absolute; top: 0; left: 0; z-index: 5; cursor: crosshair;
     }
 
-    .btn-gold:hover { background: var(--gold); color: var(--navy); }
-
-    /* Game Arena */
-    #game-arena { position: relative; width: 100%; height: 100vh; background: #000b18; }
-    #basket {
-        position: absolute;
-        bottom: 80px;
-        width: 100px;
-        height: 15px;
-        background: var(--gold);
-        border-radius: 5px;
-        box-shadow: 0 0 15px var(--gold);
+    /* Royal Envelope */
+    .envelope-wrapper { 
+        z-index: 2; position: relative; cursor: pointer; transform: scale(0.9);
+    }
+    .envelope {
+        width: 280px; height: 180px; background: #d4c4a8; position: relative;
+        transform-style: preserve-3d; transition: transform 0.8s;
+    }
+    .envelope::before {
+        content: ''; position: absolute; top: 0;
+        border-left: 140px solid transparent; border-right: 140px solid transparent;
+        border-top: 100px solid #bba683; transform-origin: top; transition: 0.5s 0.5s; z-index: 2;
+    }
+    .envelope.open::before { transform: rotateX(180deg); z-index: 0; }
+    .wax-seal {
+        position: absolute; top: 70px; left: 115px; width: 50px; height: 50px;
+        background: #8b0000; border-radius: 50%; z-index: 3;
+        display: flex; align-items: center; justify-content: center; color: gold; font-size: 10px;
     }
 
-    .drop { position: absolute; font-size: 35px; }
+    /* Bouquet Section */
+    #builder { background: var(--cream); color: #444; overflow-y: auto; display: block; }
+    .bouquet-box { position: relative; width: 220px; height: 280px; margin: 20px auto; }
+    .bouquet-area { height: 160px; display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-end; }
+    .bouquet-wrap {
+        width: 100px; height: 90px; background: #e0d0b0;
+        clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+        margin: -5px auto; border-top: 2px solid var(--gold);
+    }
+    .flower-item { font-size: 35px; margin: -12px; animation: pop 0.4s ease; }
 
-    /* Puzzle Overlay */
-    #puzzle-box {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        color: #333;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 0 50px rgba(212, 175, 55, 0.8);
-        z-index: 100;
-        width: 85%;
+    #typewriter-text {
+        font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; line-height: 1.8;
+        font-style: italic; max-width: 85%; margin: 30px auto; text-align: justify;
     }
 
-    /* Bouquet Designer */
-    #builder { background: #fff; color: #333; overflow-y: auto; height: 100vh; display: block; }
-    .bouquet-area {
-        width: 220px;
-        height: 250px;
-        border: 2px dashed var(--gold);
-        margin: 20px auto;
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        align-content: flex-end;
-        padding: 15px;
-        background: #fffdf5;
-        border-radius: 50% 50% 15px 15px;
-    }
-    .flower-item { font-size: 30px; margin: -6px; }
+    .signature { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--gold); text-align: right; padding: 20px; font-weight: bold; }
 
-    .signature {
-        margin-top: 30px;
-        font-style: italic;
-        color: var(--gold);
-        font-size: 1.4rem;
-        text-align: right;
-        width: 100%;
-        max-width: 500px;
-    }
-
+    @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<audio id="lofiMusic" loop>
+<canvas id="bg-canvas"></canvas>
+
+<audio id="bgMusic" loop>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
 </audio>
 
 <div id="home" class="screen">
-    <h1 style="color: var(--gold); font-size: 2.5rem;">EID MYSTERY HUNT</h1>
-    <p>Catch Salami, Solve Riddles & Build your Bouquet!</p>
-    <button class="btn-gold" onclick="startGame()">Start Experience</button>
+    <h2 style="font-size: 0.7rem; letter-spacing: 6px; opacity: 0.7;">A PERSONAL GIFT</h2>
+    <h1>Eternal Grace</h1>
+    <input type="text" id="userName" placeholder="Your Name" style="background:transparent; border:none; border-bottom:1px solid var(--gold); color:white; text-align:center; padding:10px; outline:none; font-family:'Cormorant Garamond'; font-size:1.2rem; margin-top:20px;">
+    <button class="btn-premium" onclick="startExperience()">Begin Revelation</button>
 </div>
 
-<div id="game-arena" class="hidden">
-    <div id="stats" style="padding-top: 60px; font-size: 1.3rem; color: var(--gold);">
-        Wallet: $<span id="score">0</span>
-    </div>
-    <div id="basket" style="left: 50%; transform: translateX(-50%);"></div>
-
-    <div id="puzzle-box" class="hidden">
-        <h3 id="puzzle-text">Riddle: I have keys but no locks. What am I?</h3>
-        <input type="text" id="puzzle-input" placeholder="Your answer..." style="padding: 10px; width: 85%; border: 1px solid #ccc; border-radius: 5px;">
-        <br>
-        <button class="btn-gold" style="color: #333; border-color: #333;" onclick="checkAnswer()">Unlock Salami</button>
+<div id="reveal-screen" class="screen hidden" style="background: #000;">
+    <canvas id="petal-canvas"></canvas>
+    <div class="envelope-wrapper" id="env-wrap">
+        <div id="env" class="envelope">
+            <div class="wax-seal">JINIA</div>
+        </div>
+        <p style="font-size: 0.6rem; letter-spacing: 3px; margin-top: 20px; color: var(--gold);">CLEAR THE PETALS TO UNSEAL</p>
     </div>
 </div>
 
 <div id="builder" class="screen hidden">
-    <div style="max-width: 500px; margin: auto; padding: 20px;">
-        <h2 style="color: var(--gold); font-size: 2.2rem; margin-bottom: 5px;">Eid Mubarak! 🌙</h2>
-        <p>Total Salami Collected: <strong>$<span id="final-score">0</span></strong></p>
+    <div style="max-width: 600px; margin: auto; padding-bottom: 50px;">
+        <h1>Eid Mubarak, <span id="wishName"></span></h1>
         
-        <div style="background: #fdf2e9; padding: 20px; border-radius: 15px; margin: 15px 0;">
-            <p style="margin-top: 0;"><strong>Design your Flower Bouquet:</strong></p>
-            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 10px;">
-                <button class="btn-gold" style="padding: 8px 15px; margin:0;" onclick="addFlower('🌹')">🌹</button>
-                <button class="btn-gold" style="padding: 8px 15px; margin:0;" onclick="addFlower('🌸')">🌸</button>
-                <button class="btn-gold" style="padding: 8px 15px; margin:0;" onclick="addFlower('🌷')">🌷</button>
-                <button class="btn-gold" style="padding: 8px 15px; margin:0;" onclick="addFlower('🌻')">🌻</button>
+        <div id="letter-content">
+            <div id="typewriter-text"></div>
+            
+            <div style="margin-top: 40px;">
+                <p style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: #888;">Create your celebratory bouquet</p>
+                <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
+                    <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌹')">🌹</span>
+                    <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌷')">🌷</span>
+                    <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌸')">🌸</span>
+                    <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌻')">🌻</span>
+                </div>
+                <div class="bouquet-box">
+                    <div id="bouquet" class="bouquet-area"></div>
+                    <div class="bouquet-wrap"></div>
+                </div>
             </div>
-            <div id="bouquet" class="bouquet-area"></div>
+
+            <div class="signature">From Jinia</div>
+            <button class="btn-premium" style="color: #444;" onclick="location.reload()">Reset Memory</button>
         </div>
-
-        <p style="font-size: 1rem; line-height: 1.6; color: #444;">"May your life be as colorful and joyful as the bouquet you've created today."</p>
-        
-        <div class="signature">From Jinia</div>
-
-        <button class="btn-gold" style="color: #333; border-color: #333; margin-top: 40px;" onclick="location.reload()">Replay Experience</button>
     </div>
 </div>
 
 <script>
-    let score = 0;
-    let gameActive = false;
-    let puzzleActive = false;
-    let currentPuzzleAnswer = "";
-    const basket = document.getElementById('basket');
-    const arena = document.getElementById('game-arena');
-    const music = document.getElementById('lofiMusic');
-    let basketX = window.innerWidth / 2 - 50;
+    let name = "";
+    const bgCanvas = document.getElementById('bg-canvas'), bgCtx = bgCanvas.getContext('2d');
+    const petalCanvas = document.getElementById('petal-canvas'), pCtx = petalCanvas.getContext('2d');
+    let particles = [], petals = [];
 
-    const puzzles = [
-        { q: "What has a face and two hands but no arms or legs?", a: "clock" },
-        { q: "The more of this there is, the less you see. What is it?", a: "darkness" },
-        { q: "What has to be broken before you can use it?", a: "egg" },
-        { q: "I am full of holes but still hold water. What am I?", a: "sponge" }
-    ];
+    // Background Stars
+    function initBg() {
+        bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
+        for(let i=0; i<70; i++) particles.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, r:Math.random()*1.2, s:Math.random()*0.4});
+    }
+    function drawBg() {
+        bgCtx.clearRect(0,0,bgCanvas.width, bgCanvas.height);
+        bgCtx.fillStyle = "rgba(197, 160, 89, 0.4)";
+        particles.forEach(p => {
+            bgCtx.beginPath(); bgCtx.arc(p.x, p.y, p.r, 0, Math.PI*2); bgCtx.fill();
+            p.y += p.s; if(p.y > bgCanvas.height) p.y = 0;
+        });
+        requestAnimationFrame(drawBg);
+    }
+    initBg(); drawBg();
 
-    function startGame() {
-        music.play().catch(() => {});
-        document.getElementById('home').classList.add('hidden');
-        arena.classList.remove('hidden');
-        gameActive = true;
-
-        const move = (e) => {
-            if(puzzleActive) return;
-            let x = e.touches ? e.touches[0].clientX : e.clientX;
-            basketX = x - 50;
-            if(basketX < 0) basketX = 0;
-            if(basketX > window.innerWidth - 100) basketX = window.innerWidth - 100;
-            basket.style.left = basketX + 'px';
-        };
-        arena.addEventListener('touchmove', (e) => { e.preventDefault(); move(e); }, {passive: false});
-        arena.addEventListener('mousemove', move);
-
-        spawnItems();
-        setTimeout(endGame, 20000); 
+    // Petal Rain Logic
+    function initPetals() {
+        petalCanvas.width = window.innerWidth; petalCanvas.height = window.innerHeight;
+        for(let i=0; i<150; i++) {
+            petals.push({
+                x: Math.random() * petalCanvas.width,
+                y: Math.random() * petalCanvas.height,
+                size: 15 + Math.random() * 15,
+                color: `rgba(${200 + Math.random()*55}, ${50 + Math.random()*50}, ${80 + Math.random()*50}, 0.9)`,
+                angle: Math.random() * 360,
+                removed: false
+            });
+        }
     }
 
-    function createItem() {
-        if(!gameActive || puzzleActive) return;
-        const item = document.createElement('div');
-        const rand = Math.random();
-        
-        item.className = 'drop';
-        if(rand > 0.9) {
-            item.innerHTML = '🎁'; 
-            item.dataset.type = "chest";
-        } else if(rand > 0.75) {
-            item.innerHTML = '💣'; 
-            item.dataset.type = "bomb";
-        } else {
-            item.innerHTML = '💵'; 
-            item.dataset.type = "cash";
-        }
-
-        item.style.left = Math.random() * (window.innerWidth - 40) + 'px';
-        item.style.top = '-50px';
-        arena.appendChild(item);
-
-        let speed = Math.random() * 2 + 4;
-        let y = -50;
-
-        const fall = setInterval(() => {
-            if(!gameActive || puzzleActive) { clearInterval(fall); item.remove(); return; }
-            y += speed;
-            item.style.top = y + 'px';
-
-            if(y > window.innerHeight - 100 && y < window.innerHeight - 60) {
-                let ix = parseFloat(item.style.left);
-                if(ix > basketX - 25 && ix < basketX + 100) {
-                    handleCollision(item.dataset.type);
-                    clearInterval(fall);
-                    item.remove();
-                }
+    function drawPetals() {
+        pCtx.clearRect(0,0,petalCanvas.width, petalCanvas.height);
+        petals.forEach(p => {
+            if(!p.removed) {
+                pCtx.save();
+                pCtx.translate(p.x, p.y);
+                pCtx.rotate(p.angle * Math.PI / 180);
+                pCtx.fillStyle = p.color;
+                // Draw petal shape
+                pCtx.beginPath();
+                pCtx.ellipse(0, 0, p.size, p.size/1.5, 0, 0, Math.PI*2);
+                pCtx.fill();
+                pCtx.restore();
             }
-            if(y > window.innerHeight) { clearInterval(fall); item.remove(); }
-        }, 20);
+        });
     }
 
-    function handleCollision(type) {
-        if(type === "cash") {
-            score += 10;
-        } else if(type === "bomb") {
-            score = Math.max(0, score - 30);
-            arena.style.background = "#ff000033";
-            setTimeout(() => arena.style.background = "#000b18", 100);
-        } else if(type === "chest") {
-            triggerPuzzle();
+    // Scratch/Remove Petals
+    function handleMove(e) {
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        const y = e.touches ? e.touches[0].clientY : e.clientY;
+        petals.forEach(p => {
+            const dist = Math.hypot(p.x - x, p.y - y);
+            if(dist < 50) p.removed = true;
+        });
+        drawPetals();
+        checkClearance();
+    }
+
+    function checkClearance() {
+        const remaining = petals.filter(p => !p.removed).length;
+        if(remaining < 15) {
+            petalCanvas.style.opacity = '0';
+            petalCanvas.style.transition = '2s';
+            setTimeout(() => {
+                document.getElementById('env-wrap').onclick = openLetter;
+            }, 1000);
         }
-        document.getElementById('score').innerText = score;
     }
 
-    function triggerPuzzle() {
-        puzzleActive = true;
-        const p = puzzles[Math.floor(Math.random() * puzzles.length)];
-        currentPuzzleAnswer = p.a;
-        document.getElementById('puzzle-text').innerText = p.q;
-        document.getElementById('puzzle-box').classList.remove('hidden');
+    function startExperience() {
+        name = document.getElementById('userName').value || "Guest";
+        document.getElementById('home').classList.add('hidden');
+        document.getElementById('reveal-screen').classList.remove('hidden');
+        document.getElementById('bgMusic').play();
+        initPetals(); drawPetals();
+        petalCanvas.addEventListener('mousemove', handleMove);
+        petalCanvas.addEventListener('touchmove', e => { e.preventDefault(); handleMove(e); }, {passive:false});
     }
 
-    function checkAnswer() {
-        const input = document.getElementById('puzzle-input').value.toLowerCase().trim();
-        if(input === currentPuzzleAnswer) {
-            score += 100;
-            alert("Correct! +$100 Salami!");
-        } else {
-            score = Math.floor(score / 2);
-            alert("Wrong! Googly! Salami slashed by 50%!");
+    function openLetter() {
+        document.getElementById('env').classList.add('open');
+        setTimeout(() => {
+            document.getElementById('reveal-screen').classList.add('hidden');
+            document.getElementById('builder').classList.remove('hidden');
+            document.getElementById('wishName').innerText = name;
+            typeWish();
+        }, 1500);
+    }
+
+    function typeWish() {
+        const wish = "On this sacred evening of Eid, I wish that your journey becomes as fragrant and timeless as these petals. May the Almighty grant you the serenity of the silver moon and the brilliance of the golden sun. Let your home be filled with the warmth of love and your heart with the peace that passeth all understanding. Wishing you a magnificent celebration that reflects the elegance of your soul. Eid Mubarak!";
+        let i = 0;
+        const target = document.getElementById('typewriter-text');
+        function typing() {
+            if(i < wish.length) {
+                target.innerHTML += wish.charAt(i);
+                i++;
+                setTimeout(typing, 45);
+            }
         }
-        document.getElementById('score').innerText = score;
-        document.getElementById('puzzle-input').value = "";
-        document.getElementById('puzzle-box').classList.add('hidden');
-        puzzleActive = false;
-    }
-
-    function spawnItems() {
-        if(gameActive) {
-            createItem();
-            setTimeout(spawnItems, 600);
-        }
+        typing();
     }
 
     function addFlower(emoji) {
-        const bouquet = document.getElementById('bouquet');
         const f = document.createElement('span');
-        f.className = 'flower-item';
-        f.innerHTML = emoji;
-        bouquet.appendChild(f);
-    }
-
-    function endGame() {
-        gameActive = false;
-        arena.classList.add('hidden');
-        document.getElementById('builder').classList.remove('hidden');
-        document.getElementById('final-score').innerText = score;
+        f.className = 'flower-item'; f.innerHTML = emoji;
+        document.getElementById('bouquet').appendChild(f);
     }
 </script>
 </body>
