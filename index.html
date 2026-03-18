@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Eid Mubarak | Eternal Elegance by Jinia</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@200;400&family=Hind+Siliguri:wght@300;500;700&display=swap" rel="stylesheet">
+
 <style>
     :root {
         --gold: #C5A059;
@@ -14,7 +16,7 @@
 
     body {
         margin: 0;
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Hind Siliguri', 'Montserrat', sans-serif;
         background: var(--navy);
         color: white;
         overflow: hidden;
@@ -38,7 +40,7 @@
         padding: 20px;
     }
 
-    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 5px; color: var(--gold); font-size: 3rem; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 2px; color: var(--gold); font-size: 2.8rem; margin: 10px 0; }
     
     .btn-premium {
         padding: 12px 35px;
@@ -51,24 +53,21 @@
         font-size: 0.8rem;
         transition: 0.5s;
         margin-top: 20px;
+        font-family: 'Hind Siliguri', sans-serif;
     }
     .btn-premium:hover { background: var(--gold); color: var(--navy); box-shadow: 0 0 20px var(--gold); }
 
-    /* Petal Rain Interaction Area */
-    #petal-canvas {
-        position: absolute; top: 0; left: 0; z-index: 5; cursor: crosshair;
-    }
+    /* Petal Rain Interaction */
+    #petal-canvas { position: absolute; top: 0; left: 0; z-index: 5; cursor: crosshair; transition: opacity 1.5s; }
 
     /* Royal Envelope */
-    .envelope-wrapper { 
-        z-index: 2; position: relative; cursor: pointer; transform: scale(0.9);
-    }
+    .envelope-wrapper { z-index: 2; position: relative; transform: scale(0.9); transition: 0.5s; }
     .envelope {
         width: 280px; height: 180px; background: #d4c4a8; position: relative;
         transform-style: preserve-3d; transition: transform 0.8s;
     }
     .envelope::before {
-        content: ''; position: absolute; top: 0;
+        content: ''; position: absolute; top: 0; left: 0;
         border-left: 140px solid transparent; border-right: 140px solid transparent;
         border-top: 100px solid #bba683; transform-origin: top; transition: 0.5s 0.5s; z-index: 2;
     }
@@ -76,7 +75,7 @@
     .wax-seal {
         position: absolute; top: 70px; left: 115px; width: 50px; height: 50px;
         background: #8b0000; border-radius: 50%; z-index: 3;
-        display: flex; align-items: center; justify-content: center; color: gold; font-size: 10px;
+        display: flex; align-items: center; justify-content: center; color: gold; font-size: 10px; font-weight: bold;
     }
 
     /* Bouquet Section */
@@ -91,13 +90,19 @@
     .flower-item { font-size: 35px; margin: -12px; animation: pop 0.4s ease; }
 
     #typewriter-text {
-        font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; line-height: 1.8;
-        font-style: italic; max-width: 85%; margin: 30px auto; text-align: justify;
+        font-family: 'Hind Siliguri', serif; font-size: 1.15rem; line-height: 1.8;
+        max-width: 85%; margin: 30px auto; text-align: justify; color: #333;
     }
 
     .signature { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--gold); text-align: right; padding: 20px; font-weight: bold; }
 
     @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+        h1 { font-size: 2.2rem; }
+        #typewriter-text { font-size: 1rem; text-align: center; }
+    }
 </style>
 </head>
 <body>
@@ -109,10 +114,10 @@
 </audio>
 
 <div id="home" class="screen">
-    <h2 style="font-size: 0.7rem; letter-spacing: 6px; opacity: 0.7;">A PERSONAL GIFT</h2>
-    <h1>Eternal Grace</h1>
-    <input type="text" id="userName" placeholder="Your Name" style="background:transparent; border:none; border-bottom:1px solid var(--gold); color:white; text-align:center; padding:10px; outline:none; font-family:'Cormorant Garamond'; font-size:1.2rem; margin-top:20px;">
-    <button class="btn-premium" onclick="startExperience()">Begin Revelation</button>
+    <h2 style="font-size: 0.7rem; letter-spacing: 6px; opacity: 0.7;">একটি ব্যক্তিগত উপহার</h2>
+    <h1>শাশ্বত আভিজাত্য</h1>
+    <input type="text" id="userName" placeholder="আপনার নাম" style="background:transparent; border:none; border-bottom:1px solid var(--gold); color:white; text-align:center; padding:10px; outline:none; font-family:'Hind Siliguri'; font-size:1.2rem; margin-top:20px;">
+    <button class="btn-premium" onclick="startExperience()">শুরু করুন</button>
 </div>
 
 <div id="reveal-screen" class="screen hidden" style="background: #000;">
@@ -121,19 +126,19 @@
         <div id="env" class="envelope">
             <div class="wax-seal">JINIA</div>
         </div>
-        <p style="font-size: 0.6rem; letter-spacing: 3px; margin-top: 20px; color: var(--gold);">CLEAR THE PETALS TO UNSEAL</p>
+        <p style="font-size: 0.7rem; letter-spacing: 2px; margin-top: 20px; color: var(--gold); font-family: 'Hind Siliguri';">পাপড়িগুলো সরিয়ে খামটি খুলুন</p>
     </div>
 </div>
 
 <div id="builder" class="screen hidden">
     <div style="max-width: 600px; margin: auto; padding-bottom: 50px;">
-        <h1>Eid Mubarak, <span id="wishName"></span></h1>
+        <h1>ঈদ মোবারক, <span id="wishName"></span></h1>
         
         <div id="letter-content">
             <div id="typewriter-text"></div>
             
             <div style="margin-top: 40px;">
-                <p style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: #888;">Create your celebratory bouquet</p>
+                <p style="font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: #888; font-family: 'Hind Siliguri';">আপনার পছন্দের ফুলের তোড়াটি সাজান</p>
                 <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
                     <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌹')">🌹</span>
                     <span style="font-size: 32px; cursor:pointer;" onclick="addFlower('🌷')">🌷</span>
@@ -146,8 +151,8 @@
                 </div>
             </div>
 
-            <div class="signature">From Jinia</div>
-            <button class="btn-premium" style="color: #444;" onclick="location.reload()">Reset Memory</button>
+            <div class="signature">ইতি, জিনিয়া</div>
+            <button class="btn-premium" style="color: #444; border-color: #444;" onclick="location.reload()">আবার দেখুন</button>
         </div>
     </div>
 </div>
@@ -157,6 +162,13 @@
     const bgCanvas = document.getElementById('bg-canvas'), bgCtx = bgCanvas.getContext('2d');
     const petalCanvas = document.getElementById('petal-canvas'), pCtx = petalCanvas.getContext('2d');
     let particles = [], petals = [];
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+        bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
+        petalCanvas.width = window.innerWidth; petalCanvas.height = window.innerHeight;
+        drawPetals();
+    });
 
     // Background Stars
     function initBg() {
@@ -177,6 +189,7 @@
     // Petal Rain Logic
     function initPetals() {
         petalCanvas.width = window.innerWidth; petalCanvas.height = window.innerHeight;
+        petals = [];
         for(let i=0; i<150; i++) {
             petals.push({
                 x: Math.random() * petalCanvas.width,
@@ -197,7 +210,6 @@
                 pCtx.translate(p.x, p.y);
                 pCtx.rotate(p.angle * Math.PI / 180);
                 pCtx.fillStyle = p.color;
-                // Draw petal shape
                 pCtx.beginPath();
                 pCtx.ellipse(0, 0, p.size, p.size/1.5, 0, 0, Math.PI*2);
                 pCtx.fill();
@@ -206,7 +218,6 @@
         });
     }
 
-    // Scratch/Remove Petals
     function handleMove(e) {
         const x = e.touches ? e.touches[0].clientX : e.clientX;
         const y = e.touches ? e.touches[0].clientY : e.clientY;
@@ -220,20 +231,24 @@
 
     function checkClearance() {
         const remaining = petals.filter(p => !p.removed).length;
-        if(remaining < 15) {
+        if(remaining < 20) {
             petalCanvas.style.opacity = '0';
-            petalCanvas.style.transition = '2s';
+            petalCanvas.style.pointerEvents = 'none';
             setTimeout(() => {
                 document.getElementById('env-wrap').onclick = openLetter;
-            }, 1000);
+                document.getElementById('env-wrap').style.cursor = 'pointer';
+            }, 500);
         }
     }
 
     function startExperience() {
-        name = document.getElementById('userName').value || "Guest";
+        name = document.getElementById('userName').value || "প্রিয়জন";
         document.getElementById('home').classList.add('hidden');
         document.getElementById('reveal-screen').classList.remove('hidden');
-        document.getElementById('bgMusic').play();
+        
+        const music = document.getElementById('bgMusic');
+        music.play().catch(() => console.log("Audio waiting for interaction"));
+
         initPetals(); drawPetals();
         petalCanvas.addEventListener('mousemove', handleMove);
         petalCanvas.addEventListener('touchmove', e => { e.preventDefault(); handleMove(e); }, {passive:false});
@@ -250,14 +265,15 @@
     }
 
     function typeWish() {
-        const wish = "On this sacred evening of Eid, I wish that your journey becomes as fragrant and timeless as these petals. May the Almighty grant you the serenity of the silver moon and the brilliance of the golden sun. Let your home be filled with the warmth of love and your heart with the peace that passeth all understanding. Wishing you a magnificent celebration that reflects the elegance of your soul. Eid Mubarak!";
+        const wish = "ঈদের এই পবিত্র ক্ষণে, আপনার জীবন হয়ে উঠুক এই পাপড়িগুলোর মতোই সুগন্ধি এবং অমলিন। সর্বশক্তিমান আপনাকে দান করুক রুপালি চাঁদের স্নিগ্ধতা আর সোনালি সূর্যের দীপ্তি। আপনার ঘর ভরে উঠুক ভালোবাসার উষ্ণতায় এবং হৃদয় ভরে উঠুক প্রশান্তিতে। আপনার আভিজাত্য এবং ব্যক্তিত্বের মতোই সুন্দর হোক আপনার এই ঈদ উদযাপন। ঈদ মোবারক!";
         let i = 0;
         const target = document.getElementById('typewriter-text');
+        target.innerHTML = ""; 
         function typing() {
             if(i < wish.length) {
                 target.innerHTML += wish.charAt(i);
                 i++;
-                setTimeout(typing, 45);
+                setTimeout(typing, 50);
             }
         }
         typing();
