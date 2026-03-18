@@ -65,4 +65,137 @@
 <div id="final-card" class="screen hidden">
     <div style="width: 100%; padding-bottom: 40px;">
         <h1 style="color: #444; font-size: 1.8rem; margin-top: 40px;">Eid Mubarak, <span id="displayRecipient"></span></h1>
-        <img src="
+        <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=500" alt="Flowers" class="bouquet-img">
+        <div id="typewriter-text"></div>
+        <div style="font-family: 'Cormorant Garamond'; font-size: 1.5rem; color: var(--gold); font-weight: bold; margin: 20px 0;">From <span id="displaySender"></span></div>
+        <button class="btn-premium" style="color:#444; border-color:#444;" onclick="location.reload()">Replay</button>
+    </div>
+</div>
+
+<script>
+    let sender = "";
+    let recipient = "";
+    let packetsCaught = 0;
+    let typingTimer;
+    const bgCanvas = document.getElementById('bg-canvas'), bgCtx = bgCanvas.getContext('2d');
+    let stars = [];
+
+    function initBg() {
+        bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight;
+        stars = [];
+        for(let i=0; i<100; i++) stars.push({x:Math.random()*bgCanvas.width, y:Math.random()*bgCanvas.height, r:Math.random()*1.2, s:Math.random()*0.2});
+    }
+    function drawBg() {
+        bgCtx.clearRect(0,0,bgCanvas.width, bgCanvas.height);
+        bgCtx.fillStyle = "white";
+        stars.forEach(s => {
+            bgCtx.beginPath(); bgCtx.arc(s.x, s.y, s.r, 0, Math.PI*2); bgCtx.fill();
+            s.y += s.s; if(s.y > bgCanvas.height) s.y = 0;
+        });
+        requestAnimationFrame(drawBg);
+    }
+    initBg(); drawBg();
+    window.addEventListener('resize', initBg);
+
+    function startSalamiGame() {
+        sender = document.getElementById('senderName').value || "Jinia";
+        recipient = document.getElementById('recipientName').value || "Guest";
+        document.getElementById('home').classList.add('hidden');
+        document.getElementById('salami-screen').classList.remove('hidden');
+        for(let i=0; i<3; i++) createPacket();
+    }
+
+    function createPacket() {
+        const p = document.createElement('div');
+        p.className = 'packet'; p.innerHTML = "🧧";
+        const area = document.getElementById('game-area');
+        area.appendChild(p);
+        
+        let posX = Math.random() * (window.innerWidth - 60);
+        let posY = Math.random() * (area.clientHeight - 60);
+        let velX = (Math.random() - 0.5) * 5;
+        let velY = (Math.random() - 0.5) * 5;
+
+        function animate() {
+            if(!p.parentNode) return;
+            posX += velX; posY += velY;
+            if(posX < 0 || posX > area.clientWidth - 50) velX *= -1;
+            if(posY < 0 || posY > area.clientHeight - 50) velY *= -1;
+            p.style.left = posX + 'px'; 
+            p.style.top = posY + 'px';
+            p.style.transform = `rotate(${velX * 5}deg)`;
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        p.onclick = () => {
+            p.remove();
+            packetsCaught++;
+            document.getElementById('count').innerText = packetsCaught;
+            if(packetsCaught === 3) setTimeout(startLanternReveal, 500);
+        };
+    }
+
+    const moveHandler = (e) => {
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        const y = e.touches ? e.touches[0].clientY : e.clientY;
+        const flame = document.getElementById('flame');
+        flame.style.left = x + 'px';
+        flame.style.top = y + 'px'; 
+
+        const lantern = document.getElementById('lantern');
+        const lRect = lantern.getBoundingClientRect();
+        
+        // Detection radius logic
+        const dx = x - (lRect.left + lRect.width/2);
+        const dy = y - (lRect.top + lRect.height/2);
+        const distance = Math.sqrt(dx*dx + dy*dy);
+
+        if(distance < 60) {
+            lantern.style.filter = "grayscale(0) brightness(1.5)";
+            lantern.style.textShadow = "0 0 50px #ffcc00, 0 0 100px #ff6600";
+            lantern.style.transform = "scale(1.1)";
+            
+            window.removeEventListener('mousemove', moveHandler);
+            window.removeEventListener('touchmove', moveHandler);
+            
+            setTimeout(showFinal, 1200);
+        }
+    };
+
+    function startLanternReveal() {
+        document.getElementById('salami-screen').classList.add('hidden');
+        document.getElementById('reveal-screen').classList.remove('hidden');
+        document.getElementById('flame').classList.remove('hidden');
+        
+        window.addEventListener('mousemove', moveHandler);
+        window.addEventListener('touchmove', moveHandler, {passive: false});
+    }
+
+    function showFinal() {
+        document.getElementById('reveal-screen').classList.add('hidden');
+        document.getElementById('flame').classList.add('hidden');
+        document.getElementById('final-card').classList.remove('hidden');
+        document.getElementById('displayRecipient').innerText = recipient;
+        document.getElementById('displaySender').innerText = sender;
+        typeWish();
+    }
+
+    function typeWish() {
+        clearTimeout(typingTimer);
+        const wish = "In the light of this sacred celebration, may your journey be filled with peace and elegance. May your life bloom with the same beauty and grace as these flowers. Wishing you a magnificent Eid filled with love. Eid Mubarak!";
+        let i = 0;
+        const target = document.getElementById('typewriter-text');
+        target.innerHTML = "";
+        
+        function typing() {
+            if(i < wish.length) {
+                target.innerHTML += wish.charAt(i); i++;
+                typingTimer = setTimeout(typing, 35);
+            }
+        }
+        typing();
+    }
+</script>
+</body>
+</html>
